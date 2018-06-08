@@ -69,8 +69,9 @@ void Game::handleFinishGame()
 	{
 		for (playersItr = _players.begin(); playersItr != _players.end(); ++playersItr)
 		{
-			(*playersItr)->send(_Protocol.response121(_players, _db));
-			(*playersItr)->setGame(nullptr);
+			string msg = _Protocol.response121(_players, _db);
+			(*playersItr)->send(msg); // in the send function we have a problem!!!
+			//(*playersItr)->setGame(nullptr);
 		}
 	}
 	catch (exception& e)
@@ -90,15 +91,18 @@ bool Game::handleNextTurn()
 	}
 	if (_players.size() == _currentTurnAnswers)
 	{
-		if (_currQuestionIndex = _questionNumber + 1)
+		if (_questionNumber = _currQuestionIndex + 1)
 		{
 			this->handleFinishGame();
+			return false;
 		}
 	}
 	else
 	{
 		_currQuestionIndex++;
+		//_currentTurnAnswers = 0;
 		this->sendQuestionToAllUsers();
+		return true;
 	}
 	return ans;
 }
@@ -145,6 +149,11 @@ bool Game::leaveGame(User * currUser)
 int Game::getID()
 {
 	return _gameID;
+}
+
+Question * Game::getCurrentQuestion()
+{
+	return _questions[_currQuestionIndex];
 }
 
 void Game::initQuestionFromDB()

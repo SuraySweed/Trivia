@@ -103,19 +103,31 @@ bool DataBase::addNewUser(string username, string password, string email)
 
 bool DataBase::isUserAndPassMatch(string username, string password)
 {
-	int rc;
-	bool returnedValue = true;
-	stringstream getting;
+	string getting = "SELECT * FROM t_users WHERE username = '" + username + "' AND password = '" + password + "';";
+	sqlite3_stmt *stmt;
 
-	getting << "select * from t_users WHERE username = " << username << " AND password = " << password;
-	rc = sqlite3_exec(_db, getting.str().c_str(), callbackCount, 0, &zErrMsg);
-
-	if (rc == SQLITE_OK)
+	if (sqlite3_prepare_v2(this->_db, getting.c_str(), strlen(getting.c_str()) + 1, &stmt, NULL) != SQLITE_OK)
 	{
-		returnedValue = false;
+		return false;
 	}
-
-	return returnedValue;
+	while (1)
+	{
+		int s;
+		s = sqlite3_step(stmt);
+		if (s == SQLITE_ROW)
+		{
+			return true;
+		}
+		else if (s == SQLITE_DONE)
+		{
+			break;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return false;
 }
 
 vector<Question*> DataBase::initQuestion(int numberOfQustions)
@@ -303,24 +315,23 @@ vector<string> DataBase::getPersonalStatus(string username)
 int DataBase::insertNewGame()
 {
 	int rc;
-	stringstream addingNewGame, gettingTheID;
 	
 	time_t timeNow = time(0);
 	string date = ctime(&timeNow);
-
-	addingNewGame << "insert into t_games values(" << 0 << ", " << date << ", NULL)";
+	string status = "0";
+	string addingNewGame = "INSERT INTO t_games(status, start_time, end_time) VALUES ('" + status + "', '" + date + "', 'NULL');";//not sure if it is working
 	try
 	{
-		rc = sqlite3_exec(_db, addingNewGame.str().c_str(), NULL, 0, &zErrMsg);
+		rc = sqlite3_exec(_db, addingNewGame.c_str(), NULL, 0, &zErrMsg);
 		if (rc != SQLITE_OK)
 		{
-			throw exception(INSERTING_ERROR);
-			return ERROR_RETURN;
+			return -1;
 		}
+
 		else
 		{
-			_currentGameID++;
-			return _currentGameID;
+			this->_currentGameID++;
+			return this->_currentGameID;
 		}
 
 	}
@@ -328,6 +339,7 @@ int DataBase::insertNewGame()
 	{
 		cout << e.what() << endl;
 	}
+
 	return _currentGameID;
 }
 
@@ -336,13 +348,14 @@ bool DataBase::updateGameStatus(int gameID)
 	int rc;
 	time_t timeNow = time(0);
 	string date = ctime(&timeNow);
-	stringstream updateGameStatus;
-	
-	updateGameStatus << "UPDATE t_games SET status = 1, end_time = " << date << " WHERE game_id = " << gameID;
+	string status = "1";
+
+	string updateGameStatus = "UPDATE t_games SET status = '" + status + "', end_time = '" + date + "' WHERE game_id = '" + std::to_string(gameID) + "';";
 
 	try
 	{
-		rc = sqlite3_exec(_db, updateGameStatus.str().c_str(), NULL, 0, &zErrMsg);
+		rc = sqlite3_exec(_db, updateGameStatus.c_str(), nullptr, nullptr, &zErrMsg);
+	
 		if (rc != SQLITE_OK)
 		{
 			throw exception(UPDATING_ERROR);
@@ -360,16 +373,19 @@ bool DataBase::updateGameStatus(int gameID)
 bool DataBase::addAnswerToPlayer(int gameID, string username, int questionID, string answer, bool isCorrect, int answerTime)
 {
 	int rc;
-	stringstream addToPlayer;
-	addToPlayer << "insert into t_players_answers values(" << gameID << ", " << username << ", " << questionID << ", " << answer << ", " << isCorrect << ", " << answerTime << ")";
+	string addToPlayer = "INSERT INTO t_players_answers values('" + std::to_string(gameID) + "', '" + username + "', '" + std::to_string(questionID) + "', '" + answer + "', '" + std::to_string(isCorrect) + "', '" + std::to_string(answerTime) + "');";
 
 	try
 	{
-		rc = sqlite3_exec(_db, addToPlayer.str().c_str(), NULL, 0, &zErrMsg);
+		rc = sqlite3_exec(_db, addToPlayer.c_str(), NULL, 0, &zErrMsg);
 		if (rc != SQLITE_OK)
 		{
 			throw exception(INSERTING_ERROR);
 			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 	catch (exception& e)

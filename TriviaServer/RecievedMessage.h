@@ -19,7 +19,7 @@ public:
 	~RecievedMessage();
 	
 	SOCKET getSock();
-	User getUser();
+	User* getUser();
 	void setUser(User* user);
 	int getMessageCode();
 	vector<string>& getValues();

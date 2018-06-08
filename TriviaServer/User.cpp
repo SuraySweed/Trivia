@@ -8,18 +8,24 @@ User::User(string username, SOCKET socket) : _username(username), _sock(socket)
 	_currRoom = nullptr;
 }
 
+User::User(string username, SOCKET socket, Room * room, Game * game) : _username(username), _sock(socket)
+{
+	this->_currRoom = new Room(*room);
+	this->_currGame = new Game(*game);
+}
+
 User::~User()
 {
 }
 
 void User::send(string message)
 {
-	_Helper.sendData(_sock, message);
+	_Helper.sendData(this->_sock, message);
 }
 
 string User::getUsername()
 {
-	return string(_username);
+	return _username;
 }
 
 SOCKET User::getSocket()
@@ -27,14 +33,14 @@ SOCKET User::getSocket()
 	return SOCKET(_sock);
 }
 
-Room * User::getRoom()
+Room* User::getRoom()
 {
-	return _currRoom;
+	return this->_currRoom;
 }
 
 Game * User::getGame()
 {
-	return _currGame;
+	return this->_currGame;
 }
 
 void User::setGame(Game * gm)

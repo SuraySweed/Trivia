@@ -15,6 +15,7 @@ class User
 {
 public:
 	User(string username, SOCKET socket);
+	User(string username, SOCKET socket, Room* room, Game* game);
 	~User();
 	void send(string message);
 	string getUsername();

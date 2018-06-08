@@ -23,7 +23,7 @@ public:
 	bool handleAnswerFromUser(User* user, int answerNumber, int time);
 	bool leaveGame(User* currUser);
 	int getID();
-
+	Question* getCurrentQuestion();
 
 private:
 	void initQuestionFromDB();

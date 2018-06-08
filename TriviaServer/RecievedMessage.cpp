@@ -19,9 +19,9 @@ SOCKET RecievedMessage::getSock()
 	return SOCKET(_sock);
 }
 
-User RecievedMessage::getUser()
+User* RecievedMessage::getUser()
 {
-	return User(*_user);
+	return _user;
 }
 
 void RecievedMessage::setUser(User * user)

@@ -132,8 +132,8 @@ string Protocol::response118(Question * question, User* user, Room* room)
 	{
 		res118 << "118";
 		res118 << _myHelper.getPaddedNumber(question->getQuestion().length(), 3) << question->getQuestion();
-
-		for (unsigned int i = 0; i < question->getAnswers()->size(); i++)
+		int s = question->getAnswers()->size();
+		for (unsigned int i = 0; i < 4; i++)
 		{
 			res118 << _myHelper.getPaddedNumber(question->getAnswers()[i].length(), 3) << question->getAnswers()[i];
 		}
@@ -171,7 +171,7 @@ string Protocol::response121(vector<User*> users, DataBase DB)
 	return (res121.str());
 }
 
-void Protocol::response124(SOCKET _socket, vector<string> top3_Scores)
+void Protocol::response124(SOCKET _socket, vector<string> top3_Scores, string username)
 {
 	stringstream res124;
 
@@ -183,10 +183,15 @@ void Protocol::response124(SOCKET _socket, vector<string> top3_Scores)
 		res124 << _myHelper.getPaddedNumber(name.size() - 6, 2) << name;
 	}
 
+	cout << "--------------------" << endl;
+	cout << "handleRecievedMessages: msgCode = 124, client_socket : " << _socket << endl;
+	cout << "Message sent to user : " << username << ", msg : " << res124.str() << endl;
+	cout << "--------------------" << endl;
+
 	_myHelper.sendData(_socket, res124.str());
 }
 
-void Protocol::response126(SOCKET _socket, vector<string> personalStatus)
+void Protocol::response126(SOCKET _socket, vector<string> personalStatus, string username)
 {
 	stringstream res126;
 	res126 << "126";
@@ -207,6 +212,12 @@ void Protocol::response126(SOCKET _socket, vector<string> personalStatus)
 		res126 << "0000";
 		_myHelper.sendData(_socket, res126.str());
 	}
+
+
+	cout << "--------------------" << endl;
+	cout << "handleRecievedMessages: msgCode = 126, client_socket : " << _socket << endl;
+	cout << "Message sent to user : "<< username << ", msg : " << res126.str() << endl;
+	cout << "--------------------" << endl;
 }
 
 
