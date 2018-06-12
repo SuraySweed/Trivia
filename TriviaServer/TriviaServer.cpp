@@ -98,8 +98,8 @@ void TriviaServer::accept()
 void TriviaServer::clientHandler(SOCKET sock)
 {
 	int msgCode = Helper::getMessageTypeCode(sock);
-
 	RecievedMessage* theReturnedMessage;	
+
 	try
 	{
 		while (msgCode != MT_CLIENT_EXIT || msgCode != 0)
@@ -117,9 +117,9 @@ void TriviaServer::clientHandler(SOCKET sock)
 		this->addRecieveMessage(errorRcvMsg);
 		closesocket(sock);
 	}
+
 	this->safeDeleteUser(new RecievedMessage(sock, msgCode));
 	cout << "Comunication Down!!" << endl;
-
 }
 
 void TriviaServer::safeDeleteUser(RecievedMessage * msg)
@@ -298,30 +298,25 @@ void TriviaServer::handleStartGame(RecievedMessage * msg)
 
 void TriviaServer::handlePlayerAnswer(RecievedMessage * msg)
 {
-	/*
-	handleRecievedMessages: msgCode = 219, client_socket: 272
-	AnswerNo=2, time=3, CorrectAnswer=2
-	Sending answer indiction to user.
-	CurrentPlayersNo=1, CurrentQuestionIndex=0, TotalQuestionsNo=5, CurrentTurnAnswres=1
-	Message sent to user: user, msg: 1201
-	sending question to all players (2/5)
-	Message sent to user: user, msg: 118034Neo is a character in which movie?006Matrix016Lord of the Ring010Fight Club012Intouchables
-	*/
 	User* user = this->getUserBySocket(msg->getSock());
 	int answerNumber = std::stoi(msg->getValues()[0]);
 	int time = std::stoi(msg->getValues()[1]);
 
 	cout << "--------------------" << endl;
 	cout << "handleRecievedMessages: msgCode = 219, client_socket : " << msg->getSock() << endl;
-	cout << "AnswerNo = " << user->getGame() << ", time = " << "ss" << ", CorrectAnswer = " << "sa56" << endl;
+	cout << "AnswerNo = " << answerNumber << ", time = " << time << ", CorrectAnswer = " << user->getGame()->getCurrentQuestion()->getCorrectAnswerIndex() + 1 << endl;
+	cout << "Sending answer indiction to user." << endl;
 
 	if (user->getGame() != nullptr)
 	{
 		if (!(user->getGame()->handleAnswerFromUser(user, answerNumber, time)))
 		{
 			user->setGame(nullptr);
+			cout << "Message sent to user : " << user->getUsername() << ", msg : 1201" << endl;
+
 		}
 	}
+	cout << "--------------------" << endl;
 }
 
 bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
@@ -331,6 +326,10 @@ bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
 	int playersNumber = std::stoi(msg->getValues()[1]);
 	int questionsNumber = std::stoi(msg->getValues()[2]);
 	int questionTime = std::stoi(msg->getValues()[3]);
+	
+	cout << "--------------------" << endl;
+	cout << "handleRecievedMessages: msgCode = 213, client_socket : " << msg->getSock() << endl;
+
 
 	if (user != nullptr)
 	{
@@ -340,12 +339,15 @@ bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
 		{
 			_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
 			_Protocol.response114(0, msg->getSock());
+			cout << "Message sent to user : " << user->getUsername() << ", msg : 1140" << endl;
+			cout << "Room was created" << endl;
 			return true;
 		}
 	}
 	else
 	{
 		_Protocol.response114(1, msg->getSock());
+		cout << "Message sent to user : " << user->getUsername() << ", msg : 1141" << endl;
 	}
 
 	return false;
@@ -586,10 +588,6 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 
 	if (msgCode == MT_CLIENT_SIGN_IN)
 	{
-		/*
-		parameters.push_back(msgInString.substr(5, std::stoi(msgInString.substr(3, 2))));
-		parameters.push_back(msgInString.substr(5 + std::stoi(msgInString.substr(3, 2)) + 2, std::stoi(msgInString.substr(std::stoi(msgInString.substr(3, 2)) + 5, 2))));
-		*/
 		for (int i = 0; i < 2; i++)
 		{
 			byte = Helper::getIntPartFromSocket(sock, 2);
@@ -607,14 +605,6 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 	}
 	else if (msgCode == MT_CLIENT_SIGN_UP)
 	{
-		/*
-		parameters.push_back(msgInString.substr(5, std::stoi(msgInString.substr(3, 2))));
-		parameters.push_back(msgInString.substr(5 + std::stoi(msgInString.substr(3, 2)) + 2, std::stoi(msgInString.substr(std::stoi(msgInString.substr(3, 2)) + 5, 2))));
-		int up_till_name = std::stoi(msgInString.substr(3, 2));
-		int up_till_pass = std::stoi(msgInString.substr(std::stoi(msgInString.substr(3, 2)) + 5, 2));
-		parameters.push_back(msgInString.substr(5 + up_till_name + 2 + up_till_pass + 2, std::stoi(msgInString.substr(5 + up_till_name + 2 + up_till_pass, 2))));
-		*/
-
 		for (int i = 0; i < 3; i++)
 		{
 			byte = Helper::getIntPartFromSocket(sock, 2);
@@ -643,9 +633,6 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 	}
 	else if (msgCode == MT_CLIENT_JOIN_ROOM)
 	{
-		/*
-		parameters.push_back(msgInString.substr(3, 4));
-		*/
 		parameters.push_back(string(Helper::getStringPartFromSocket(sock, 4)));
 
 		RecievedMessage * msg = new RecievedMessage(sock, msgCode, parameters);
@@ -659,18 +646,6 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 	}
 	else if (msgCode == MT_CLIENT_CREATE_ROOM)
 	{
-		/*
-		int sizeOfName = std::stoi(msgInString.substr(3, 2));
-		int indexOfName = 5;
-		int indexOfPlayersNumber = 5 + sizeOfName;
-		int indexOfQuestionsNumber = indexOfPlayersNumber + 1;
-		int indexOfQuestionTime = indexOfQuestionsNumber + 2;
-
-		parameters.push_back(msgInString.substr(indexOfName, sizeOfName));
-		parameters.push_back(msgInString.substr(indexOfPlayersNumber, 1));
-		parameters.push_back(msgInString.substr(indexOfQuestionsNumber, 2));
-		parameters.push_back(msgInString.substr(indexOfQuestionTime, 2));
-		*/
 		byte = Helper::getIntPartFromSocket(sock, 2);
 		parameters.push_back(string(Helper::getStringPartFromSocket(sock, byte)));
 		parameters.push_back(string(Helper::getStringPartFromSocket(sock, 1)));
@@ -693,10 +668,6 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 	}
 	else if (msgCode == MT_CLIENT_PLAYERS_ANSWER)
 	{
-		/*
-		parameters.push_back(std::to_string(msgInString[3]));
-		parameters.push_back(msgInString.substr(5, 2));
-		*/
 		parameters.push_back(Helper::getStringPartFromSocket(sock, 1));
 		parameters.push_back(Helper::getStringPartFromSocket(sock, 2));
 

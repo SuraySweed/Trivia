@@ -195,15 +195,28 @@ void Protocol::response126(SOCKET _socket, vector<string> personalStatus, string
 {
 	stringstream res126;
 	res126 << "126";
-	
+	vector<int> vectorTimeSpliter;
+	stringstream ss(personalStatus[3]);
+	int i;
+
+	while (ss >> i)
+	{
+		vectorTimeSpliter.push_back(i);
+
+		if (ss.peek() == '.')
+			ss.ignore();
+	}
+
+
 	if (personalStatus[0].length() > 0)
 	{
-		res126 << _myHelper.getPaddedNumber(personalStatus[0].length(), 4);
-		res126 << _myHelper.getPaddedNumber(personalStatus[1].length(), 6);
-		res126 << _myHelper.getPaddedNumber(personalStatus[2].length(), 6);
+		res126 << _myHelper.getPaddedNumber(std::stoi(personalStatus[0]), 4);
+		res126 << _myHelper.getPaddedNumber(std::stoi(personalStatus[1]), 6);
+		res126 << _myHelper.getPaddedNumber(std::stoi(personalStatus[2]), 6);
 
-		res126 << _myHelper.getPaddedNumber((personalStatus[3]).substr(0, 1).length(), 2);
-		res126 << _myHelper.getPaddedNumber((personalStatus[3]).substr(2, 2).length(), 2);
+
+		res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[0], 2);
+		res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[1], 2);
 
 		_myHelper.sendData(_socket, res126.str());
 	}
