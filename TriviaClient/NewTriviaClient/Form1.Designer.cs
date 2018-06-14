@@ -151,6 +151,7 @@
             this.Controls.Add(this.BackPic1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BackPic1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic3)).EndInit();

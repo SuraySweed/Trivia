@@ -73,5 +73,10 @@ namespace NewTriviaClient
                 BackPic8.Top = this.ClientRectangle.Bottom;
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

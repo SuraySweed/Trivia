@@ -1,0 +1,10 @@
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\bin\Debug\NewTriviaClient.exe.config
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\bin\Debug\NewTriviaClient.exe
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\bin\Debug\NewTriviaClient.pdb
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.csprojResolveAssemblyReference.cache
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.Form1.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.Properties.Resources.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.csproj.GenerateResource.Cache
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.csproj.CoreCompileInputs.cache
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.exe
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.pdb
