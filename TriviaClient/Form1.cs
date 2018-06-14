@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TriviaClient
+namespace NewTriviaClient
 {
     public partial class Form1 : Form
     {
@@ -17,41 +17,15 @@ namespace TriviaClient
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBox3_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        int NTop = 4;
         private void timer1_Tick(object sender, EventArgs e)
         {
             BackPic1.Top--;
-            if(BackPic1.Bottom <= 0)
+            if (BackPic1.Bottom <= 0)
             {
                 BackPic1.Top = this.ClientRectangle.Bottom;
             }

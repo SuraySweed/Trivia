@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9E89EF09-13B9-4D09-B760-5F2B0B7BFDE4}</ProjectGuid>
+    <ProjectGuid>{B401D167-846D-4029-ACA7-2278CF28EF96}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TriviaClient</RootNamespace>
-    <AssemblyName>TriviaClient</AssemblyName>
+    <RootNamespace>NewTriviaClient</RootNamespace>
+    <AssemblyName>NewTriviaClient</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -80,25 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="signUp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\glowing question marks.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\555473503_1881670.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\QuestionMM.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tenor.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MyQM.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SignUp2.png" />
+    <None Include="Resources\MyQM.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
