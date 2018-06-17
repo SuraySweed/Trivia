@@ -45,8 +45,8 @@
             this.MyStatusButton = new System.Windows.Forms.Button();
             this.BestScoresButton = new System.Windows.Forms.Button();
             this.QuitButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.User_Name = new System.Windows.Forms.TextBox();
+            this.Password_Text = new System.Windows.Forms.TextBox();
             this.UserName = new System.Windows.Forms.Label();
             this.Password = new System.Windows.Forms.Label();
             this.SignInButton = new System.Windows.Forms.Button();
@@ -235,19 +235,21 @@
             this.QuitButton.UseVisualStyleBackColor = false;
             this.QuitButton.Click += new System.EventHandler(this.QuitButton_Click);
             // 
-            // textBox1
+            // User_Name
             // 
-            this.textBox1.Location = new System.Drawing.Point(185, 134);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(365, 20);
-            this.textBox1.TabIndex = 14;
+            this.User_Name.Location = new System.Drawing.Point(185, 134);
+            this.User_Name.Name = "User_Name";
+            this.User_Name.Size = new System.Drawing.Size(365, 20);
+            this.User_Name.TabIndex = 14;
+            this.User_Name.TextChanged += new System.EventHandler(this.User_Name_TextChanged);
             // 
-            // textBox2
+            // Password_Text
             // 
-            this.textBox2.Location = new System.Drawing.Point(185, 160);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(365, 20);
-            this.textBox2.TabIndex = 15;
+            this.Password_Text.Location = new System.Drawing.Point(185, 160);
+            this.Password_Text.Name = "Password_Text";
+            this.Password_Text.Size = new System.Drawing.Size(365, 20);
+            this.Password_Text.TabIndex = 15;
+            this.Password_Text.TextChanged += new System.EventHandler(this.Password_Text_TextChanged);
             // 
             // UserName
             // 
@@ -308,8 +310,8 @@
             this.Controls.Add(this.SignInButton);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.UserName);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Password_Text);
+            this.Controls.Add(this.User_Name);
             this.Controls.Add(this.QuitButton);
             this.Controls.Add(this.BestScoresButton);
             this.Controls.Add(this.MyStatusButton);
@@ -358,8 +360,8 @@
         private System.Windows.Forms.Button MyStatusButton;
         private System.Windows.Forms.Button BestScoresButton;
         private System.Windows.Forms.Button QuitButton;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox User_Name;
+        private System.Windows.Forms.TextBox Password_Text;
         private System.Windows.Forms.Label UserName;
         private System.Windows.Forms.Label Password;
         private System.Windows.Forms.Button SignInButton;

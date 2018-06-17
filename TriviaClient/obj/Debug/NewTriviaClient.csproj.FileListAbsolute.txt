@@ -8,3 +8,4 @@ C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaPro
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.csproj.CoreCompileInputs.cache
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.exe
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.pdb
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\NewTriviaClient\NewTriviaClient\obj\Debug\NewTriviaClient.ErrorForm.resources
