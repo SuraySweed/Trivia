@@ -10,27 +10,38 @@ namespace NewTriviaClient
     {
         public void foo()
         {
-            string MsgFromServer = "1040002000105suray000205rabea";
-            int numOfRooms = Int32.Parse(MsgFromServer.Substring(3, 4));
-            // rooms <id, name>
-            Dictionary<string, string> Rooms = new Dictionary<string, string>();
+            string MsgFromServer = "121305rabea1005suray0504user15";
 
-            int firstRoomIDIndex = 7;
-            int firstRoomNameSizeIndex = 11;
-            string roomID;
-            int roomNameSize = 0;
-            string roomName;
-            int roomNameSizeSum = 0;
+            int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 1));
 
-            for (int i = 0; i < numOfRooms; i++)
+            if (numOfUsers == 0)
             {
-                roomNameSize = Int32.Parse(MsgFromServer.Substring(firstRoomNameSizeIndex + roomNameSizeSum + i * 4 + i * 2, 2));
-               
 
-                roomName = MsgFromServer.Substring(firstRoomNameSizeIndex + 2 + roomNameSizeSum + i * 4 + i * 2, roomNameSize);
-                roomID = MsgFromServer.Substring(firstRoomIDIndex + i * 4 + i * 2 + roomNameSizeSum, 4);
-                roomNameSizeSum += roomNameSize;
-                Rooms.Add(roomID, roomName);
+            }
+            else
+            {
+                Dictionary<string, int> Users = new Dictionary<string, int>();
+
+                int firstUserNameSizeIndex = 4;
+                string userName;
+                int NameSize;
+                int sizeSum = 0;
+                int UserScore;
+
+                for (int i = 0; i < numOfUsers; i++)
+                {
+                    NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + sizeSum + i * 4, 2));
+                    userName = MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, NameSize);
+
+                    sizeSum += NameSize;
+
+                    UserScore = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, 2));
+
+                    Users[userName] = UserScore;
+                }
+
+                // Send usernames list to the function
+
             }
         }
     }

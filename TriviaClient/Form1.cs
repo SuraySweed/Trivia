@@ -228,13 +228,108 @@ namespace NewTriviaClient
                         break;
                 }
             }
+            else if(msgCode == ServerCodes.RESPOND_TO_LEAVE_ROOM)
+            {
+
+            }
+            else if(msgCode == ServerCodes.RESPOND_TO_CREATE_ROOM)
+            {
+                int status = Int32.Parse(MsgFromServer[4].ToString());
+
+                switch (status)
+                {
+                    case 0: // success
+                        break;
+                    case 1: // fail
+                        break;
+                }
+            }
+            else if(msgCode == ServerCodes.RESPOND_TO_CLOSE_ROOM)
+            {
+
+            }
+            else if(msgCode == ServerCodes.RESPOND_TO_QUESTION_WITH_ANSWERS)
+            {
+                int sizeSum = 0;
+
+                int QuestionSize = Int32.Parse(MsgFromServer.Substring(3, 3));
+                string Question = MsgFromServer.Substring(6, QuestionSize);
+
+                sizeSum += QuestionSize;
+
+                int ans1Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
+                string ans1 = MsgFromServer.Substring(6 + 3 + sizeSum, ans1Size);
+
+                sizeSum += ans1Size;
+
+                int ans2Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
+                string ans2 = MsgFromServer.Substring(6 + 3 + sizeSum, ans2Size);
+
+                sizeSum += ans2Size;
+
+                int ans3Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
+                string ans3 = MsgFromServer.Substring(6 + 3 + sizeSum, ans3Size);
+
+                sizeSum += ans3Size;
+
+                int ans4Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
+                string ans4 = MsgFromServer.Substring(6 + 3 + sizeSum, ans4Size);
+
+                sizeSum += ans4Size;
+            }
+            else if(msgCode == ServerCodes.RESPOND_TO_USERS_ANS)
+            {
+                int status = Int32.Parse(MsgFromServer[4].ToString());
+
+                switch (status)
+                {
+                    case 0: // correct answer
+                        break;
+                    case 1: // wrong answer
+                        break;
+                }
+            }
+            else if(msgCode == ServerCodes.GAME_IS_FINISHED)
+            {
+                int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 1));
+
+                if (numOfUsers == 0)
+                {
+
+                }
+                else
+                {
+                    Dictionary<string, int> Users = new Dictionary<string, int>();
+
+                    int firstUserNameSizeIndex = 4;
+                    string userName;
+                    int NameSize;
+                    int sizeSum = 0;
+                    int UserScore;
+
+                    for (int i = 0; i < numOfUsers; i++)
+                    {
+                        NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + sizeSum + i * 4, 2));
+                        userName = MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, NameSize);
+
+                        sizeSum += NameSize;
+
+                        UserScore = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, 2));
+
+                        Users[userName] = UserScore;
+                    }
+
+                    // Send usernames list to the function
+
+                }
+            }
         }
-        // [1100 questionsNumber questionTimeInSec] 
+        // [121 usersNumber ## userName score ## userName score]
 
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            //test fuck = new test();
-            //fuck.foo();
+            test fu = new test();
+            fu.foo();
         }
     }
    
@@ -312,8 +407,26 @@ namespace NewTriviaClient
         public const int SEND_USERS_LIST = 108;
 
         public const int RESPOND_TO_JOIN_ROOM = 110;
+
+        public const int RESPOND_TO_LEAVE_ROOM = 112;
+
+        public const int RESPOND_TO_CREATE_ROOM = 114;
+
+        public const int RESPOND_TO_CLOSE_ROOM = 116;
+
+        public const int RESPOND_TO_QUESTION_WITH_ANSWERS = 118;
+
+        public const int RESPOND_TO_USERS_ANS = 120;
+
+        public const int GAME_IS_FINISHED = 121;
+
+        public const int GET_BEST_SCORES_FROM_SERVER = 124;
+
+        public const int GET_PERSONAL_SCORES_FROM_SERVER = 126;
+
+
     }
-    
+
 
 
 }
