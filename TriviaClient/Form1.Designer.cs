@@ -51,6 +51,7 @@
             this.Password = new System.Windows.Forms.Label();
             this.SignInButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.popUpText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic3)).BeginInit();
@@ -160,7 +161,7 @@
             // 
             this.SignUpButton.BackColor = System.Drawing.Color.SteelBlue;
             this.SignUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SignUpButton.Font = new System.Drawing.Font("Lucida Blackletter", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpButton.ForeColor = System.Drawing.Color.White;
             this.SignUpButton.Location = new System.Drawing.Point(288, 209);
             this.SignUpButton.Name = "SignUpButton";
@@ -168,12 +169,13 @@
             this.SignUpButton.TabIndex = 8;
             this.SignUpButton.Text = "Sign Up";
             this.SignUpButton.UseVisualStyleBackColor = false;
+            this.SignUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
             // 
             // CreateRoomButton
             // 
             this.CreateRoomButton.BackColor = System.Drawing.Color.SteelBlue;
             this.CreateRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.CreateRoomButton.Font = new System.Drawing.Font("Lucida Blackletter", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreateRoomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateRoomButton.ForeColor = System.Drawing.Color.White;
             this.CreateRoomButton.Location = new System.Drawing.Point(102, 320);
             this.CreateRoomButton.Name = "CreateRoomButton";
@@ -186,7 +188,7 @@
             // 
             this.JoinRoomButton.BackColor = System.Drawing.Color.SteelBlue;
             this.JoinRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.JoinRoomButton.Font = new System.Drawing.Font("Lucida Blackletter", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JoinRoomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JoinRoomButton.ForeColor = System.Drawing.Color.White;
             this.JoinRoomButton.Location = new System.Drawing.Point(476, 320);
             this.JoinRoomButton.Name = "JoinRoomButton";
@@ -199,7 +201,7 @@
             // 
             this.MyStatusButton.BackColor = System.Drawing.Color.SteelBlue;
             this.MyStatusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.MyStatusButton.Font = new System.Drawing.Font("Lucida Blackletter", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MyStatusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MyStatusButton.ForeColor = System.Drawing.Color.White;
             this.MyStatusButton.Location = new System.Drawing.Point(102, 423);
             this.MyStatusButton.Name = "MyStatusButton";
@@ -212,7 +214,7 @@
             // 
             this.BestScoresButton.BackColor = System.Drawing.Color.SteelBlue;
             this.BestScoresButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BestScoresButton.Font = new System.Drawing.Font("Lucida Blackletter", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BestScoresButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BestScoresButton.ForeColor = System.Drawing.Color.White;
             this.BestScoresButton.Location = new System.Drawing.Point(476, 422);
             this.BestScoresButton.Name = "BestScoresButton";
@@ -225,7 +227,7 @@
             // 
             this.QuitButton.BackColor = System.Drawing.Color.Peru;
             this.QuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.QuitButton.Font = new System.Drawing.Font("Lucida Blackletter", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.QuitButton.ForeColor = System.Drawing.Color.White;
             this.QuitButton.Location = new System.Drawing.Point(371, 527);
             this.QuitButton.Name = "QuitButton";
@@ -279,7 +281,7 @@
             // 
             this.SignInButton.BackColor = System.Drawing.Color.SteelBlue;
             this.SignInButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SignInButton.Font = new System.Drawing.Font("Lucida Blackletter", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignInButton.ForeColor = System.Drawing.Color.White;
             this.SignInButton.Location = new System.Drawing.Point(556, 134);
             this.SignInButton.Name = "SignInButton";
@@ -287,6 +289,7 @@
             this.SignInButton.TabIndex = 18;
             this.SignInButton.Text = "Sign In";
             this.SignInButton.UseVisualStyleBackColor = false;
+            this.SignInButton.Click += new System.EventHandler(this.SignInButton_Click);
             // 
             // label1
             // 
@@ -300,12 +303,22 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Trivia Game";
             // 
+            // popUpText
+            // 
+            this.popUpText.AutoSize = true;
+            this.popUpText.BackColor = System.Drawing.Color.Transparent;
+            this.popUpText.Location = new System.Drawing.Point(235, 183);
+            this.popUpText.Name = "popUpText";
+            this.popUpText.Size = new System.Drawing.Size(0, 13);
+            this.popUpText.TabIndex = 20;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(808, 606);
+            this.Controls.Add(this.popUpText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SignInButton);
             this.Controls.Add(this.Password);
@@ -366,6 +379,7 @@
         private System.Windows.Forms.Label Password;
         private System.Windows.Forms.Button SignInButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label popUpText;
     }
 }
 
