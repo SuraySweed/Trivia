@@ -323,8 +323,50 @@ namespace NewTriviaClient
 
                 }
             }
+            else if(msgCode == ServerCodes.GET_BEST_SCORES_FROM_SERVER)
+            {
+                Dictionary<string, int> Users = new Dictionary<string, int>();
+
+                int firstUserNameSizeIndex = 3;
+                string userName;
+                int NameSize;
+                int sizeSum = 0;
+                int UserScore;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + sizeSum + 8 * i, 2));
+                    userName = MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 8, NameSize);
+
+                    sizeSum += NameSize;
+
+                    UserScore = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 8, 6));
+
+                    Users[userName] = UserScore;
+                }
+            }
+            else if(msgCode == ServerCodes.GET_PERSONAL_STATUS_FROM_SERVER)
+            {
+                int numberOfGames = Int32.Parse(MsgFromServer.Substring(3, 4));
+
+                if(numberOfGames == 0)
+                {
+                    //nvrmnd
+                }
+                else
+                {
+                    int numberOfRightAnswers = Int32.Parse(MsgFromServer.Substring(7, 6));
+                    int numberOfWrongAnswers = Int32.Parse(MsgFromServer.Substring(13, 6));
+                    int tens = Int32.Parse(MsgFromServer.Substring(19, 1));
+                    int ones = Int32.Parse(MsgFromServer.Substring(20, 1));
+                    int tenth = Int32.Parse(MsgFromServer.Substring(21, 1));
+                    int percent = Int32.Parse(MsgFromServer.Substring(22, 1));
+
+                    float avgTimeForAnswer = tens * 10 + ones * 1 + (float)(tenth * 0.1) + (float)(percent * 0.01);
+                }
+            }
         }
-        // [121 usersNumber ## userName score ## userName score]
+        // 126 numberOfGames numberOfRightAns numerOfWrongAns avgTimeForAns
 
         private void SignUpButton_Click(object sender, EventArgs e)
         {
@@ -422,7 +464,7 @@ namespace NewTriviaClient
 
         public const int GET_BEST_SCORES_FROM_SERVER = 124;
 
-        public const int GET_PERSONAL_SCORES_FROM_SERVER = 126;
+        public const int GET_PERSONAL_STATUS_FROM_SERVER = 126;
 
 
     }

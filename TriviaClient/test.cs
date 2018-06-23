@@ -10,39 +10,18 @@ namespace NewTriviaClient
     {
         public void foo()
         {
-            string MsgFromServer = "121305rabea1005suray0504user15";
+            string MsgFromServer = "12105rabea00001005suray00001504user000020";
 
-            int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 1));
+            int tens = 5;
+            int ones = 1;
+            int tenth = 8;
+            int percent = 6;
 
-            if (numOfUsers == 0)
-            {
+            float avgTimeForAnswer = tens * 10 + ones * 1 + (float)(tenth * 0.1) + (float)(percent * 0.01);
 
-            }
-            else
-            {
-                Dictionary<string, int> Users = new Dictionary<string, int>();
+            // Send usernames list to the function
 
-                int firstUserNameSizeIndex = 4;
-                string userName;
-                int NameSize;
-                int sizeSum = 0;
-                int UserScore;
 
-                for (int i = 0; i < numOfUsers; i++)
-                {
-                    NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + sizeSum + i * 4, 2));
-                    userName = MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, NameSize);
-
-                    sizeSum += NameSize;
-
-                    UserScore = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + 2 + sizeSum + i * 4, 2));
-
-                    Users[userName] = UserScore;
-                }
-
-                // Send usernames list to the function
-
-            }
         }
     }
 }
