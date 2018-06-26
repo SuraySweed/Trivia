@@ -306,7 +306,7 @@
             // popUpText
             // 
             this.popUpText.AutoSize = true;
-            this.popUpText.BackColor = System.Drawing.Color.Transparent;
+            this.popUpText.BackColor = System.Drawing.Color.Red;
             this.popUpText.Location = new System.Drawing.Point(235, 183);
             this.popUpText.Name = "popUpText";
             this.popUpText.Size = new System.Drawing.Size(0, 13);

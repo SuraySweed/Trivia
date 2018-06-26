@@ -19,6 +19,8 @@ namespace NewTriviaClient
 {
     public partial class Form1 : Form
     {
+        Protocol MyProtocol = new Protocol();
+        ClientServerSocket TriviaServerConnection = new ClientServerSocket();
         public Form1()
         {
             InitializeComponent();
@@ -26,11 +28,26 @@ namespace NewTriviaClient
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            bool check = true;
 
+            while (check)
+            {
+                check = TriviaServerConnection.connection();
+                if (check)
+                {
+
+                    break;
+                }
+                else
+                {
+                    ErrorForm error = new ErrorForm();
+                    error.Show();
+                    this.Hide();
+                }
+            }
         }
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -85,8 +102,6 @@ namespace NewTriviaClient
             }
         }
 
-
-
         private void QuitButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -104,14 +119,24 @@ namespace NewTriviaClient
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
+            string username = User_Name.Text;
+            string password = Password_Text.Text;
 
+            string msgToSend = MyProtocol.SignIn(username, password);
+            TriviaServerConnection.SendToServer(msgToSend);
+
+            handleRecievedMessage(TriviaServerConnection.ReceiveFromServer());
         }
 
-        private void handles(string MsgFromServer)
+        private void handleRecievedMessage(string MsgFromServer)
         {
             int msgCode = Int32.Parse(MsgFromServer.Substring(0, 3));
 
-            if (msgCode == ServerCodes.SIGN_IN)
+            if(msgCode == 0)
+            {
+                // nothing it just connected
+            }
+            else if (msgCode == ServerCodes.SIGN_IN)
             {
                 int status = Int32.Parse(MsgFromServer[3].ToString());
                 switch (status)
@@ -121,7 +146,7 @@ namespace NewTriviaClient
                         break;
                     case 1:
                         // TO DO : MNADE LL DSPLE
-                        popUpText.Text = "Wrong Details bra...";
+                        popUpText.Text = "Wrong Details..";
 
                         break;
                     case 2:
@@ -153,7 +178,7 @@ namespace NewTriviaClient
                         break;
                 }
             }
-            else if(msgCode == ServerCodes.SEND_ROOMS_LIST)
+            else if (msgCode == ServerCodes.SEND_ROOMS_LIST)
             {
                 int numOfRooms = Int32.Parse(MsgFromServer.Substring(3, 4));
                 // rooms <id, name>
@@ -177,9 +202,9 @@ namespace NewTriviaClient
                 }
 
                 // Send Dict in Function
-                
+
             }
-            else if(msgCode == ServerCodes.SEND_USERS_LIST)
+            else if (msgCode == ServerCodes.SEND_USERS_LIST)
             {
                 int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 4));
                 if (numOfUsers == 0)
@@ -195,9 +220,9 @@ namespace NewTriviaClient
                     int NameSize;
                     int NameSizeSum = 0;
 
-                    for (int i = 0; i < numOfUsers; i++) 
+                    for (int i = 0; i < numOfUsers; i++)
                     {
-                        NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + NameSizeSum + i*2, 2));
+                        NameSize = Int32.Parse(MsgFromServer.Substring(firstUserNameSizeIndex + NameSizeSum + i * 2, 2));
 
                         userName = MsgFromServer.Substring(firstUserNameSizeIndex + 2 + NameSizeSum + 2 * i, NameSize);
                         NameSizeSum += NameSize;
@@ -209,10 +234,10 @@ namespace NewTriviaClient
 
                 }
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_JOIN_ROOM) 
+            else if (msgCode == ServerCodes.RESPOND_TO_JOIN_ROOM)
             {
                 int status = Int32.Parse(MsgFromServer[4].ToString());
-                switch(status)
+                switch (status)
                 {
                     case 0: // success
 
@@ -228,11 +253,11 @@ namespace NewTriviaClient
                         break;
                 }
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_LEAVE_ROOM)
+            else if (msgCode == ServerCodes.RESPOND_TO_LEAVE_ROOM)
             {
 
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_CREATE_ROOM)
+            else if (msgCode == ServerCodes.RESPOND_TO_CREATE_ROOM)
             {
                 int status = Int32.Parse(MsgFromServer[4].ToString());
 
@@ -244,11 +269,11 @@ namespace NewTriviaClient
                         break;
                 }
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_CLOSE_ROOM)
+            else if (msgCode == ServerCodes.RESPOND_TO_CLOSE_ROOM)
             {
 
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_QUESTION_WITH_ANSWERS)
+            else if (msgCode == ServerCodes.RESPOND_TO_QUESTION_WITH_ANSWERS)
             {
                 int sizeSum = 0;
 
@@ -277,7 +302,7 @@ namespace NewTriviaClient
 
                 sizeSum += ans4Size;
             }
-            else if(msgCode == ServerCodes.RESPOND_TO_USERS_ANS)
+            else if (msgCode == ServerCodes.RESPOND_TO_USERS_ANS)
             {
                 int status = Int32.Parse(MsgFromServer[4].ToString());
 
@@ -289,7 +314,7 @@ namespace NewTriviaClient
                         break;
                 }
             }
-            else if(msgCode == ServerCodes.GAME_IS_FINISHED)
+            else if (msgCode == ServerCodes.GAME_IS_FINISHED)
             {
                 int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 1));
 
@@ -323,7 +348,7 @@ namespace NewTriviaClient
 
                 }
             }
-            else if(msgCode == ServerCodes.GET_BEST_SCORES_FROM_SERVER)
+            else if (msgCode == ServerCodes.GET_BEST_SCORES_FROM_SERVER)
             {
                 Dictionary<string, int> Users = new Dictionary<string, int>();
 
@@ -345,11 +370,11 @@ namespace NewTriviaClient
                     Users[userName] = UserScore;
                 }
             }
-            else if(msgCode == ServerCodes.GET_PERSONAL_STATUS_FROM_SERVER)
+            else if (msgCode == ServerCodes.GET_PERSONAL_STATUS_FROM_SERVER)
             {
                 int numberOfGames = Int32.Parse(MsgFromServer.Substring(3, 4));
 
-                if(numberOfGames == 0)
+                if (numberOfGames == 0)
                 {
                     //nvrmnd
                 }
@@ -366,31 +391,88 @@ namespace NewTriviaClient
                 }
             }
         }
-        // 126 numberOfGames numberOfRightAns numerOfWrongAns avgTimeForAns
 
+       
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            test fu = new test();
-            fu.foo();
+            //test fu = new test();
+            //fu.foo();
         }
     }
-   
 
-    public class ServerConnectionTCP
+    
+    //public class ServerConnectionTCP
+    //{
+    //    private TcpClient client;
+    //    private NetworkStream clientStream;
+    //    public ServerConnectionTCP()
+    //    {
+    //        client = new TcpClient();
+    //        IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8820);
+    //        client.Connect(serverEndPoint);
+    //        clientStream = client.GetStream();
+    //    }
+    //    public void SendToServer(string msgToServer)
+    //    {
+    //        byte[] buffer = new ASCIIEncoding().GetBytes(msgToServer);
+    //        clientStream.Write(buffer, 0, 4);
+    //        clientStream.Flush();
+    //    }
+
+    //    public string ReceiveFromServer()
+    //    {
+    //        try
+    //        {
+    //            byte[] bufferln = new byte[4];
+    //            int bytesRead = clientStream.Read(bufferln, 0, 4);
+    //            string message = new ASCIIEncoding().GetString(bufferln);
+    //            return message;
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            MessageBox.Show("Connection Error, " + e.ToString());
+    //        }
+    //        return "";
+    //    }
+    //}
+    public class ClientServerSocket
     {
         private TcpClient client;
         private NetworkStream clientStream;
-        public ServerConnectionTCP()
+
+        public TcpClient getClient()
         {
-            client = new TcpClient();
-            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8820);
-            client.Connect(serverEndPoint);
-            clientStream = client.GetStream();
+            return client;
         }
+
+        public bool connection()
+        {
+            try
+            {
+                client = new TcpClient();
+                IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8820);
+                client.Connect(serverEndPoint);
+                clientStream = client.GetStream();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            if (client.Connected)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void SendToServer(string msgToServer)
         {
             byte[] buffer = new ASCIIEncoding().GetBytes(msgToServer);
-            clientStream.Write(buffer, 0, 4);
+            clientStream.Write(buffer, 0, buffer.Length);
             clientStream.Flush();
         }
 
@@ -398,8 +480,8 @@ namespace NewTriviaClient
         {
             try
             {
-                byte[] bufferln = new byte[4];
-                int bytesRead = clientStream.Read(bufferln, 0, 4);
+                byte[] bufferln = new byte[4800];
+                int bytesRead = clientStream.Read(bufferln, 0, 4800);
                 string message = new ASCIIEncoding().GetString(bufferln);
                 return message;
             }
@@ -413,62 +495,119 @@ namespace NewTriviaClient
 
     public class Protocol
     {
-        public String request200(String username, String password)
+        public string getPaddedNumber(int number, int numberOfDigits)
         {
-            return "f";
+            string toReturn = number.ToString();
+            toReturn.PadLeft(numberOfDigits, '0');
+            return toReturn;
         }
-        /*
-        String request201();
-        String request203(String username, String password, String email);
-        String request205();
-        String request207(int roomID);
-        String request209(int roomID);
-        String request211();
-        String request213(String roomName, int playersNumber, int questionsNumber, int time);
-        String request215();
-        String request217();
-        String request219(int numberOfQuestion, int timeInSeconds);
-        String request222();
-        String request223();
-        String request225();
-        */
+
+        private string messageToSend;
+        public string SignIn(string username, string password)
+        {
+            messageToSend = "200" + getPaddedNumber(username.Length, 2) + username + getPaddedNumber(password.Length, 2) + password;
+            return messageToSend;
+        }
+        public string SignOut()
+        {
+            messageToSend = "201";
+            return messageToSend;
+        }
+
+        public string SignUp(string username, string password, string email)
+        {
+            messageToSend = "203" + getPaddedNumber(username.Length, 2) + username + getPaddedNumber(password.Length, 2) + password + getPaddedNumber(email.Length, 2) + email;
+            return messageToSend;
+        }
+
+        public string GetRooms()
+        {
+            messageToSend = "205";
+            return messageToSend;
+        }
+
+        public string GetUsersInRoom(string roomID)
+        {
+            messageToSend = "207" + roomID;
+            return messageToSend;
+        }
+
+        public string JoinRoom(string roomID)
+        {
+            messageToSend = "209" + roomID;
+            return messageToSend;
+        }
+
+        public string LeaveRoom()
+        {
+            messageToSend = "211";
+            return messageToSend;
+        }
+
+        public string CreateRoom(string roomName, string playersNumber, string questionsNumber, string questionTimeInSec)
+        {
+            messageToSend = "213" + getPaddedNumber(roomName.Length,2) + roomName + playersNumber.PadLeft(2,'0') + questionsNumber.PadLeft(2,'0') + questionTimeInSec;
+            return messageToSend;
+        }
+
+        public string CloseRoom()
+        {
+            messageToSend = "215";
+            return messageToSend;
+        }
+
+        public string StartGame()
+        {
+            messageToSend = "217";
+            return messageToSend;
+        }
+
+        public string sendAnswer(string answerNumber, string time)
+        {
+            messageToSend = "219" + answerNumber + time.PadLeft(2, '0');
+            return messageToSend;
+        }
+
+        public string LeaveGame()
+        {
+            messageToSend = "222";
+            return messageToSend;
+        }
+
+        public string GetBestScore()
+        {
+            messageToSend = "223";
+            return messageToSend;
+        }
+
+        public string GetPersonalScore()
+        {
+            messageToSend = "225";
+            return messageToSend;
+        }
+        public string LeaveApp()
+        {
+            messageToSend = "299";
+            return messageToSend;
+        }
     }
 
     public class ServerCodes
     {
-        //Sign In
         public const int SIGN_IN = 102;
-
-        //Sign Up
         public const int SIGN_UP = 104;
-
-        // send list of rooms
         public const int SEND_ROOMS_LIST = 106;
-
-        // send list of users
         public const int SEND_USERS_LIST = 108;
-
         public const int RESPOND_TO_JOIN_ROOM = 110;
-
         public const int RESPOND_TO_LEAVE_ROOM = 112;
-
         public const int RESPOND_TO_CREATE_ROOM = 114;
-
         public const int RESPOND_TO_CLOSE_ROOM = 116;
-
         public const int RESPOND_TO_QUESTION_WITH_ANSWERS = 118;
-
         public const int RESPOND_TO_USERS_ANS = 120;
-
         public const int GAME_IS_FINISHED = 121;
-
         public const int GET_BEST_SCORES_FROM_SERVER = 124;
-
         public const int GET_PERSONAL_STATUS_FROM_SERVER = 126;
-
-
     }
 
-
-
+   
 }
