@@ -98,16 +98,22 @@ void TriviaServer::accept()
 void TriviaServer::clientHandler(SOCKET sock)
 {
 	int msgCode = Helper::getMessageTypeCode(sock);
-	RecievedMessage* theReturnedMessage;	
+	RecievedMessage* theReturnedMessage;
 
 	try
 	{
-		while (msgCode != MT_CLIENT_EXIT || msgCode != 0)
+		while (msgCode != MT_CLIENT_EXIT)
 		{
 			theReturnedMessage = this->buildRecieveMessage(sock, msgCode);
 			this->addRecieveMessage(theReturnedMessage);
 			this->handleRecievedMessage();
 			msgCode = Helper::getMessageTypeCode(sock);
+		}
+		if (msgCode == MT_CLIENT_EXIT)
+		{
+			closesocket(sock);
+			cout << "handleRecievedMessages: msgCode = 299, client_socket : " << sock << endl;
+			cout << "Client Out !!!" << endl;
 		}
 	}
 	catch (exception &e)
@@ -261,7 +267,7 @@ void TriviaServer::handleSignout(RecievedMessage * msg)
 			cout << "handleLeaveGame : Game was ended and released from memory" << endl;
 			cout << "User had signedout : username = " << user->getUsername() << ", socket = " << user->getSocket() << endl;
 			cout << "--------------------" << endl;
-			closesocket(msg->getSock());
+			//closesocket(msg->getSock());
 		}
 	}
 	catch (exception& e)

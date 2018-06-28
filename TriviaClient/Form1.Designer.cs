@@ -52,6 +52,8 @@
             this.SignInButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.popUpText = new System.Windows.Forms.Label();
+            this.HelloUserLabel = new System.Windows.Forms.Label();
+            this.SignOutButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic3)).BeginInit();
@@ -186,6 +188,7 @@
             // 
             // JoinRoomButton
             // 
+            this.JoinRoomButton.AllowDrop = true;
             this.JoinRoomButton.BackColor = System.Drawing.Color.SteelBlue;
             this.JoinRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.JoinRoomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -209,6 +212,7 @@
             this.MyStatusButton.TabIndex = 11;
             this.MyStatusButton.Text = "My Status";
             this.MyStatusButton.UseVisualStyleBackColor = false;
+            this.MyStatusButton.Click += new System.EventHandler(this.MyStatusButton_Click);
             // 
             // BestScoresButton
             // 
@@ -312,12 +316,41 @@
             this.popUpText.Size = new System.Drawing.Size(0, 13);
             this.popUpText.TabIndex = 20;
             // 
+            // HelloUserLabel
+            // 
+            this.HelloUserLabel.AutoSize = true;
+            this.HelloUserLabel.BackColor = System.Drawing.Color.Transparent;
+            this.HelloUserLabel.Font = new System.Drawing.Font("Miriam Fixed", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HelloUserLabel.Location = new System.Drawing.Point(338, 144);
+            this.HelloUserLabel.Name = "HelloUserLabel";
+            this.HelloUserLabel.Size = new System.Drawing.Size(182, 28);
+            this.HelloUserLabel.TabIndex = 21;
+            this.HelloUserLabel.Text = "Hello User";
+            this.HelloUserLabel.Visible = false;
+            // 
+            // SignOutButton
+            // 
+            this.SignOutButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.SignOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.SignOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignOutButton.ForeColor = System.Drawing.Color.White;
+            this.SignOutButton.Location = new System.Drawing.Point(288, 209);
+            this.SignOutButton.Name = "SignOutButton";
+            this.SignOutButton.Size = new System.Drawing.Size(282, 56);
+            this.SignOutButton.TabIndex = 22;
+            this.SignOutButton.Text = "Sign Out";
+            this.SignOutButton.UseVisualStyleBackColor = false;
+            this.SignOutButton.Visible = false;
+            this.SignOutButton.Click += new System.EventHandler(this.SignOutButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(808, 606);
+            this.Controls.Add(this.SignOutButton);
+            this.Controls.Add(this.HelloUserLabel);
             this.Controls.Add(this.popUpText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SignInButton);
@@ -380,6 +413,8 @@
         private System.Windows.Forms.Button SignInButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label popUpText;
+        private System.Windows.Forms.Label HelloUserLabel;
+        private System.Windows.Forms.Button SignOutButton;
     }
 }
 
