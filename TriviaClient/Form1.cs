@@ -401,10 +401,25 @@ namespace NewTriviaClient
                 int numberOfRightAnswers;
                 int numberOfWrongAnswers;
                 float avgTimeForAnswer;
+
                  List<string> ans = new List<string>();
+
                 if (numberOfGames == 0)
                 {
                     //nvrmnd
+                    numberOfRightAnswers = Int32.Parse(MsgFromServer.Substring(7, 6));
+                    numberOfWrongAnswers = Int32.Parse(MsgFromServer.Substring(13, 6));
+                    int tens = Int32.Parse(MsgFromServer.Substring(19, 1));
+                    int ones = Int32.Parse(MsgFromServer.Substring(20, 1));
+                    int tenth = Int32.Parse(MsgFromServer.Substring(21, 1));
+                    int percent = Int32.Parse(MsgFromServer.Substring(22, 1));
+
+                    avgTimeForAnswer = tens * 10 + ones * 1 + (float)(tenth * 0.1) + (float)(percent * 0.01);
+
+                    ans.Add(numberOfGames.ToString());
+                    ans.Add(numberOfRightAnswers.ToString());
+                    ans.Add(numberOfWrongAnswers.ToString());
+                    ans.Add(avgTimeForAnswer.ToString());
                 }
                 else
                 {
