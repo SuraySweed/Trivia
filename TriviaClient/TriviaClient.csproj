@@ -45,7 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BestScoresForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BestScoresForm.Designer.cs">
+      <DependentUpon>BestScoresForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuildMessage.cs" />
+    <Compile Include="CreateRoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateRoomForm.Designer.cs">
+      <DependentUpon>CreateRoomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BestScoresForm.resx">
+      <DependentUpon>BestScoresForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateRoomForm.resx">
+      <DependentUpon>CreateRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
     </EmbeddedResource>
