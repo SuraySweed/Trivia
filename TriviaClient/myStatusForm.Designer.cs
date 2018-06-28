@@ -95,6 +95,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "myStatusForm";
             this.Text = "myStatusForm";
+            this.Load += new System.EventHandler(this.myStatusForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

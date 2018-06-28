@@ -226,6 +226,7 @@
             this.BestScoresButton.TabIndex = 12;
             this.BestScoresButton.Text = "Best Scores";
             this.BestScoresButton.UseVisualStyleBackColor = false;
+            this.BestScoresButton.Click += new System.EventHandler(this.BestScoresButton_Click);
             // 
             // QuitButton
             // 
@@ -306,6 +307,7 @@
             this.label1.Size = new System.Drawing.Size(678, 95);
             this.label1.TabIndex = 19;
             this.label1.Text = "Trivia Game";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // popUpText
             // 

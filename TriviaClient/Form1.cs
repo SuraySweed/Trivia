@@ -391,7 +391,7 @@ namespace NewTriviaClient
 
                     Users[userName] = UserScore;
                 }
-                return null;
+                return Users;
             }
             else if (msgCode == ServerCodes.GET_PERSONAL_STATUS_FROM_SERVER)
             {
@@ -430,7 +430,8 @@ namespace NewTriviaClient
        
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            
+            SignUp sign
+            string username = 
         }
 
         private void SignOutButton_Click(object sender, EventArgs e)
@@ -449,9 +450,6 @@ namespace NewTriviaClient
 
             this.SignUpButton.Show();
             SignOutButton.Hide();
-
-
-
         }
 
         private void MyStatusButton_Click(object sender, EventArgs e)
@@ -474,9 +472,35 @@ namespace NewTriviaClient
             statusForm.Status.Text = "Number of Games: " + list[0] + "\nNumber Of Right Answers: " + list[1] + "\nNumber Of Wrong Answers: " + list[2] + "\nAverage Time For Answer: " + list[3];
 
             statusForm.NameOfUser.Text = this.User_Name.Text;
+        }
 
-            
-            
+        private void BestScoresButton_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, int> BestScoreDict = new Dictionary<string, int>();
+
+            string msgToSend = MyProtocol.GetBestScore();
+
+            TriviaServerConnection.SendToServer(msgToSend);
+
+            BestScoreDict = handleRecievedMessage(TriviaServerConnection.ReceiveFromServer());
+
+            this.Hide();
+            Form1 f = this as Form1;
+            BestScoresForm bestScoreForm = new BestScoresForm(ref f);
+
+            bestScoreForm.Show();
+
+            foreach (KeyValuePair<string, int> kvp in BestScoreDict)
+            {
+                bestScoreForm.BestScoreText.Text += kvp.Key + " : " + kvp.Value + " PTS" + "\n\n";
+            }        
+
+            bestScoreForm.NameOfUser.Text = this.User_Name.Text;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

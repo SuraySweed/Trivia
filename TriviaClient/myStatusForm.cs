@@ -30,6 +30,10 @@ namespace NewTriviaClient
             _mainForm.Show();
             
         }
-       
+
+        private void myStatusForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
