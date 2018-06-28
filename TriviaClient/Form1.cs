@@ -19,8 +19,8 @@ namespace NewTriviaClient
 {
     public partial class Form1 : Form
     {
-        Protocol MyProtocol = new Protocol();
-        ClientServerSocket TriviaServerConnection = new ClientServerSocket();
+        public Protocol MyProtocol = new Protocol();
+        public ClientServerSocket TriviaServerConnection = new ClientServerSocket();
         public Form1()
         {
             InitializeComponent();
@@ -129,7 +129,7 @@ namespace NewTriviaClient
             handleRecievedMessage(TriviaServerConnection.ReceiveFromServer());
         }
 
-        private dynamic handleRecievedMessage(string MsgFromServer)
+        public dynamic handleRecievedMessage(string MsgFromServer)
         {
             int msgCode = Int32.Parse(MsgFromServer.Substring(0, 3));
 
@@ -144,6 +144,8 @@ namespace NewTriviaClient
                 {
                     case 0:
                         // TO DO: MNADE LLHALON ALE B3D MEFOT 
+                        popUpText.Text = "";
+
                         this.UserName.Hide();
                         this.User_Name.Hide();
                         this.Password.Hide();
@@ -177,19 +179,19 @@ namespace NewTriviaClient
                 switch (status)
                 {
                     case 0:
-                        // No Problem---- TODOSHIT
+                        return "YOU ARE NOW REGESTURED";
                         break;
                     case 1:
-                        popUpText.Text = "Illegal Pass";
+                        return "Illegal Pass";
                         break;
                     case 2:
-                        popUpText.Text = "Username Already Exists!!";
+                        return "Username Already Exists!!";
                         break;
                     case 3:
-                        popUpText.Text = "Username is Illegal!!";
+                        return "Username is Illegal!!";
                         break;
                     case 4:
-                        popUpText.Text = "No Clue what the problem is!!";
+                        return "No Clue what the problem is!!";
                         break;
                 }
                 return null;
@@ -430,8 +432,11 @@ namespace NewTriviaClient
        
         private void SignUpButton_Click(object sender, EventArgs e)
         {
-            SignUp sign
-            string username = 
+            this.Hide();
+            Form1 f = this as Form1;
+            SignUp SignUpForm = new SignUp(ref f);
+
+            SignUpForm.Show();
         }
 
         private void SignOutButton_Click(object sender, EventArgs e)

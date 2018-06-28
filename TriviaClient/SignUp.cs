@@ -12,8 +12,10 @@ namespace NewTriviaClient
 {
     public partial class SignUp : Form
     {
-        public SignUp()
+        Form1 _mainForm = new Form1();
+        public SignUp(ref Form1 mainForm)
         {
+            _mainForm = mainForm;
             InitializeComponent();
         }
 
@@ -25,6 +27,33 @@ namespace NewTriviaClient
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void SignUpButton_Click(object sender, EventArgs e)
+        {
+            string username = UserNameText.Text;
+            string password = PasswordText.Text;
+            string email = EmailText.Text;
+
+            string msgToSend = _mainForm.MyProtocol.SignUp(username, password, email);
+
+            _mainForm.TriviaServerConnection.SendToServer(msgToSend);
+
+            string msgToShow = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+
+            popUpText.Text = msgToShow;
+
+            if(msgToShow == "YOU ARE NOW REGESTURED")
+            {
+                this.Close();
+                _mainForm.Show();
+            }
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            _mainForm.Show();
         }
     }
 }
