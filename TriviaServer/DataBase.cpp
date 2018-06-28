@@ -74,7 +74,7 @@ bool DataBase::isUserExist(string username)
 	bool returnedValue = true;
 
 	stringstream showUsers;
-	showUsers << "Select uaername from t_users Where username = " << username;
+	showUsers << "Select username from t_users Where username = " << '"' << username << '"';
 	rc = sqlite3_exec(_db, showUsers.str().c_str(), NULL, 0, &zErrMsg);
 	
 	if (rc != SQLITE_OK)
@@ -91,7 +91,7 @@ bool DataBase::addNewUser(string username, string password, string email)
 	bool returnedValue = true;
 	stringstream addingUser;
 
-	addingUser << "insert into t_users values(" << username << ", " << password << ", " << email << ")";
+	addingUser << "insert into t_users values(" << '"' << username << '"' << ", " << '"' << password << '"' << ", " << '"' << email << '"' << ")";
 	rc = sqlite3_exec(_db, addingUser.str().c_str(), NULL, 0, &zErrMsg);
 	if (rc != SQLITE_OK)
 	{
@@ -178,6 +178,7 @@ vector<string> DataBase::getBestScores()
 	stringstream getIsCorrectQuestion;
 	vector<string> _allOFPlayersWithIsCorrectAnswer;
 	vector<string> _bestScoreUsernames;
+	results.clear();
 
 	try
 	{
@@ -320,6 +321,7 @@ int DataBase::insertNewGame()
 	string date = ctime(&timeNow);
 	string status = "0";
 	string addingNewGame = "INSERT INTO t_games(status, start_time, end_time) VALUES ('" + status + "', '" + date + "', 'NULL');";//not sure if it is working
+	
 	try
 	{
 		rc = sqlite3_exec(_db, addingNewGame.c_str(), NULL, 0, &zErrMsg);
