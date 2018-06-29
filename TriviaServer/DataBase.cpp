@@ -81,7 +81,7 @@ bool DataBase::isUserExist(string username)
 	{
 		return false;
 	}
-
+	results.clear();
 	return returnedValue;
 }
 
@@ -106,17 +106,15 @@ bool DataBase::isUserAndPassMatch(string username, string password)
 	int rc;
 	stringstream getting;
 	getting << "SELECT * FROM t_users WHERE username = " << '"' << username << '"' << " AND password = " << '"' << password << '"';
-	rc = sqlite3_exec(_db, getting.str().c_str(), NULL, 0, &zErrMsg);
+	rc = sqlite3_exec(_db, getting.str().c_str(), callbackCount, 0, &zErrMsg);
 	
-	if (rc != SQLITE_OK)
+	if (results.size() == 0)
 	{
 		return false;
 	}
-	else
-	{
-		return true;
-	}
-	return false;
+	results.clear();
+
+	return true;
 }
 
 vector<Question*> DataBase::initQuestion(int numberOfQustions)

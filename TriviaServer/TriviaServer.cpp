@@ -319,7 +319,6 @@ void TriviaServer::handlePlayerAnswer(RecievedMessage * msg)
 		{
 			user->setGame(nullptr);
 			cout << "Message sent to user : " << user->getUsername() << ", msg : 1201" << endl;
-
 		}
 	}
 	cout << "--------------------" << endl;
@@ -346,7 +345,9 @@ bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
 			_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
 			_Protocol.response114(0, msg->getSock());
 			cout << "Message sent to user : " << user->getUsername() << ", msg : 1140" << endl;
-			cout << "Room was created" << endl;
+			cout << "Room was created, Admin: " << user->getUsername() << ", room name : " << user->getRoom()->getName() << ", room id : " << user->getRoom()->getID() << ", players number : " << user->getRoom()->getMaxUsersNumber() << ", question number : " << user->getRoom()->getQuestionNumber() << ", answer time : " << user->getRoom()->getQuestionTime();
+			cout << "--------------------" << endl;
+
 			return true;
 		}
 	}
@@ -355,6 +356,7 @@ bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
 		_Protocol.response114(1, msg->getSock());
 		cout << "Message sent to user : " << user->getUsername() << ", msg : 1141" << endl;
 	}
+	cout << "--------------------" << endl;
 
 	return false;
 }
