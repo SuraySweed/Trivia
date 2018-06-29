@@ -115,7 +115,7 @@ namespace NewTriviaClient
 
         private void Password_Text_TextChanged(object sender, EventArgs e)
         {
-
+            Password_Text.UseSystemPasswordChar = true;
         }
 
         private void SignInButton_Click(object sender, EventArgs e)
@@ -151,6 +151,7 @@ namespace NewTriviaClient
                         this.Password.Hide();
                         this.Password_Text.Hide();
                         this.SignInButton.Hide();
+                        this.Show_Password.Hide();
 
                         this.HelloUserLabel.Text = "Hello " + User_Name.Text;
                         this.HelloUserLabel.Show();
@@ -466,6 +467,7 @@ namespace NewTriviaClient
             this.User_Name.Show();
             this.Password.Show();
             this.Password_Text.Show();
+            this.Show_Password.Show();
             this.SignInButton.Show();
 
             this.HelloUserLabel.Hide();
@@ -534,6 +536,18 @@ namespace NewTriviaClient
             createRoomForm.Show();
 
             createRoomForm.NameOfUser.Text = this.User_Name.Text;
+        }
+
+        private void Show_Password_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Show_Password.Checked)
+            {
+                Password_Text.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                Password_Text.UseSystemPasswordChar = true;
+            }
         }
     }
 

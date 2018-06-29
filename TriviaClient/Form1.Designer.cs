@@ -54,6 +54,7 @@
             this.popUpText = new System.Windows.Forms.Label();
             this.HelloUserLabel = new System.Windows.Forms.Label();
             this.SignOutButton = new System.Windows.Forms.Button();
+            this.Show_Password = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackPic3)).BeginInit();
@@ -245,7 +246,7 @@
             // 
             // User_Name
             // 
-            this.User_Name.Location = new System.Drawing.Point(185, 134);
+            this.User_Name.Location = new System.Drawing.Point(155, 134);
             this.User_Name.Name = "User_Name";
             this.User_Name.Size = new System.Drawing.Size(365, 20);
             this.User_Name.TabIndex = 14;
@@ -253,7 +254,7 @@
             // 
             // Password_Text
             // 
-            this.Password_Text.Location = new System.Drawing.Point(185, 160);
+            this.Password_Text.Location = new System.Drawing.Point(155, 163);
             this.Password_Text.Name = "Password_Text";
             this.Password_Text.Size = new System.Drawing.Size(365, 20);
             this.Password_Text.TabIndex = 15;
@@ -265,11 +266,11 @@
             this.UserName.BackColor = System.Drawing.Color.Transparent;
             this.UserName.Font = new System.Drawing.Font("Showcard Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserName.ForeColor = System.Drawing.Color.Black;
-            this.UserName.Location = new System.Drawing.Point(103, 134);
+            this.UserName.Location = new System.Drawing.Point(62, 134);
             this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(76, 17);
+            this.UserName.Size = new System.Drawing.Size(86, 17);
             this.UserName.TabIndex = 16;
-            this.UserName.Text = "USERNAME";
+            this.UserName.Text = "USERNAME : ";
             // 
             // Password
             // 
@@ -277,11 +278,11 @@
             this.Password.BackColor = System.Drawing.Color.Transparent;
             this.Password.Font = new System.Drawing.Font("Showcard Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Password.ForeColor = System.Drawing.Color.Black;
-            this.Password.Location = new System.Drawing.Point(103, 160);
+            this.Password.Location = new System.Drawing.Point(62, 163);
             this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(82, 17);
+            this.Password.Size = new System.Drawing.Size(92, 17);
             this.Password.TabIndex = 17;
-            this.Password.Text = "PASSWORD";
+            this.Password.Text = "PASSWORD : ";
             // 
             // SignInButton
             // 
@@ -289,7 +290,7 @@
             this.SignInButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SignInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignInButton.ForeColor = System.Drawing.Color.White;
-            this.SignInButton.Location = new System.Drawing.Point(556, 134);
+            this.SignInButton.Location = new System.Drawing.Point(628, 134);
             this.SignInButton.Name = "SignInButton";
             this.SignInButton.Size = new System.Drawing.Size(152, 53);
             this.SignInButton.TabIndex = 18;
@@ -346,12 +347,25 @@
             this.SignOutButton.Visible = false;
             this.SignOutButton.Click += new System.EventHandler(this.SignOutButton_Click);
             // 
+            // Show_Password
+            // 
+            this.Show_Password.AutoSize = true;
+            this.Show_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Show_Password.Location = new System.Drawing.Point(538, 158);
+            this.Show_Password.Name = "Show_Password";
+            this.Show_Password.Size = new System.Drawing.Size(84, 29);
+            this.Show_Password.TabIndex = 23;
+            this.Show_Password.Text = "Show";
+            this.Show_Password.UseVisualStyleBackColor = true;
+            this.Show_Password.CheckedChanged += new System.EventHandler(this.Show_Password_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(808, 606);
+            this.Controls.Add(this.Show_Password);
             this.Controls.Add(this.SignOutButton);
             this.Controls.Add(this.HelloUserLabel);
             this.Controls.Add(this.popUpText);
@@ -418,6 +432,7 @@
         private System.Windows.Forms.Label popUpText;
         private System.Windows.Forms.Label HelloUserLabel;
         private System.Windows.Forms.Button SignOutButton;
+        private System.Windows.Forms.CheckBox Show_Password;
     }
 }
 
