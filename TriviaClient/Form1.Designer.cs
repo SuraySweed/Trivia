@@ -185,6 +185,7 @@
             this.CreateRoomButton.TabIndex = 9;
             this.CreateRoomButton.Text = "Create Room";
             this.CreateRoomButton.UseVisualStyleBackColor = false;
+            this.CreateRoomButton.Click += new System.EventHandler(this.CreateRoomButton_Click);
             // 
             // JoinRoomButton
             // 
@@ -323,7 +324,7 @@
             this.HelloUserLabel.AutoSize = true;
             this.HelloUserLabel.BackColor = System.Drawing.Color.Transparent;
             this.HelloUserLabel.Font = new System.Drawing.Font("Miriam Fixed", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelloUserLabel.Location = new System.Drawing.Point(338, 144);
+            this.HelloUserLabel.Location = new System.Drawing.Point(326, 144);
             this.HelloUserLabel.Name = "HelloUserLabel";
             this.HelloUserLabel.Size = new System.Drawing.Size(182, 28);
             this.HelloUserLabel.TabIndex = 21;

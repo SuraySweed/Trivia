@@ -53,6 +53,7 @@
             this.BackButton.TabIndex = 1;
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = false;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // NameOfUser
             // 
@@ -155,6 +156,7 @@
             this.CreateRoomButton.TabIndex = 30;
             this.CreateRoomButton.Text = "CREATE";
             this.CreateRoomButton.UseVisualStyleBackColor = false;
+            this.CreateRoomButton.Click += new System.EventHandler(this.CreateRoomButton_Click);
             // 
             // CreateRoomForm
             // 

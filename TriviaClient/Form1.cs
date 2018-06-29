@@ -279,13 +279,15 @@ namespace NewTriviaClient
             }
             else if (msgCode == ServerCodes.RESPOND_TO_CREATE_ROOM)
             {
-                int status = Int32.Parse(MsgFromServer[4].ToString());
+                int status = Int32.Parse(MsgFromServer[3].ToString());
 
                 switch (status)
                 {
                     case 0: // success
+                        return true;
                         break;
                     case 1: // fail
+                        return false;
                         break;
                 }
                 return null;
@@ -522,6 +524,17 @@ namespace NewTriviaClient
         {
 
         }
+
+        private void CreateRoomButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 f = this as Form1;
+
+            CreateRoomForm createRoomForm = new CreateRoomForm(ref f);
+            createRoomForm.Show();
+
+            createRoomForm.NameOfUser.Text = this.User_Name.Text;
+        }
     }
 
 
@@ -637,7 +650,7 @@ namespace NewTriviaClient
 
         public string CreateRoom(string roomName, string playersNumber, string questionsNumber, string questionTimeInSec)
         {
-            messageToSend = "213" + getPaddedNumber(roomName.Length,2) + roomName + playersNumber.PadLeft(2,'0') + questionsNumber.PadLeft(2,'0') + questionTimeInSec;
+            messageToSend = "213" + getPaddedNumber(roomName.Length, 2) + roomName + playersNumber + questionsNumber.PadLeft(2, '0') + questionTimeInSec.PadLeft(2, '0');
             return messageToSend;
         }
 
