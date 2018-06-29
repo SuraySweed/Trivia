@@ -74,12 +74,12 @@ bool DataBase::isUserExist(string username)
 	bool returnedValue = true;
 
 	stringstream showUsers;
-	showUsers << "Select username from t_users Where username = " << '"' << username << '"';
-	rc = sqlite3_exec(_db, showUsers.str().c_str(), NULL, 0, &zErrMsg);
+	showUsers << "SELECT username from t_users WHERE username = " << '"' << username << '"';
+	rc = sqlite3_exec(_db, showUsers.str().c_str(), callbackCount, 0, &zErrMsg);
 	
-	if (rc != SQLITE_OK)
+	if (results.size() == 0)
 	{
-		returnedValue = false;
+		return false;
 	}
 
 	return returnedValue;
@@ -103,29 +103,18 @@ bool DataBase::addNewUser(string username, string password, string email)
 
 bool DataBase::isUserAndPassMatch(string username, string password)
 {
-	string getting = "SELECT * FROM t_users WHERE username = '" + username + "' AND password = '" + password + "';";
-	sqlite3_stmt *stmt;
-
-	if (sqlite3_prepare_v2(this->_db, getting.c_str(), strlen(getting.c_str()) + 1, &stmt, NULL) != SQLITE_OK)
+	int rc;
+	stringstream getting;
+	getting << "SELECT * FROM t_users WHERE username = " << '"' << username << '"' << " AND password = " << '"' << password << '"';
+	rc = sqlite3_exec(_db, getting.str().c_str(), NULL, 0, &zErrMsg);
+	
+	if (rc != SQLITE_OK)
 	{
 		return false;
 	}
-	while (1)
+	else
 	{
-		int s;
-		s = sqlite3_step(stmt);
-		if (s == SQLITE_ROW)
-		{
-			return true;
-		}
-		else if (s == SQLITE_DONE)
-		{
-			break;
-		}
-		else
-		{
-			return false;
-		}
+		return true;
 	}
 	return false;
 }
@@ -253,55 +242,50 @@ vector<string> DataBase::getBestScores()
 vector<string> DataBase::getPersonalStatus(string username)
 {
 	vector<string> personalStatus;
-	stringstream getNumberOfGames, numberOfIsCorrectAnswers;
+
+	stringstream getNumberOfGames, AnswersNumber, numberOfWrongAnswers, avgTimeForAnswers;
+	int rc;
+	int gamesCount = 0, correctAnswerCount = 0, wrongAnswerCount = 0;
+	string timeAvg = "";
 
 	try
 	{
-		// learning a new this is sqlite3, "sqlite3_stmt" and this this is very good...
+		getNumberOfGames << "SELECT * from t_players_answers WHERE username = " << '"' << username << '"';
+		rc = sqlite3_exec(_db, getNumberOfGames.str().c_str(), callbackPersonalStatus, 0, &zErrMsg);
+		
+		gamesCount = results["game_id"].size();
 
-		string getStatus = "SELECT SUM(CASE WHEN is_correct IS NOT 0 THEN 1 ELSE 0 END) AS column1_count, MAX(game_id) AS column2_count, SUM(CASE WHEN question_id IS NOT NULL THEN 1 ELSE 0 END) AS column3_count, AVG(answer_time) AS column4_count FROM t_players_answers WHERE username = '" + username + "';";
-		sqlite3_stmt *stmt;
-
-		if (sqlite3_prepare_v2(this->_db, getStatus.c_str(), strlen(getStatus.c_str()) + 1, &stmt, NULL) != SQLITE_OK)
+		if (gamesCount > 0)
 		{
-			throw exception(RETRIVING_ERROR);
-		}
+			AnswersNumber << "SELECT username from t_players_answers WHERE username = " << '"' << username << '"';
+			rc = sqlite3_exec(_db, AnswersNumber.str().c_str(), callbackPersonalStatus, 0, &zErrMsg);
 
-		while (1)
+			for (unsigned int i = 0; i < results["is_correct"].size(); i++)
+			{
+				if (results["is_correct"][i] == "1")
+				{
+					correctAnswerCount++;
+				}
+				else
+				{
+					wrongAnswerCount++;
+				}
+			}
+
+			avgTimeForAnswers << "SELECT AVG(answer_time) from t_players_answers WHERE username = " << '"' << username << '"';
+			rc = sqlite3_exec(_db, avgTimeForAnswers.str().c_str(), callbackPersonalStatus, 0, &zErrMsg);
+			timeAvg = results["AVG(answer_time)"][0].substr(0, 4);
+		}
+		else
 		{
-			int s;
-			s = sqlite3_step(stmt);
-
-			if (s == SQLITE_ROW)
-			{
-				string correctAnswers = (char*)sqlite3_column_text(stmt, 0);
-				int correctAnswersCount = atoi(correctAnswers.c_str());
-				string gamesCount = (char*)sqlite3_column_text(stmt, 1);
-				string questionsCount = (char*)sqlite3_column_text(stmt, 2);
-				string avgTime = (char*)sqlite3_column_text(stmt, 3);
-				int avargeTime = atoi(avgTime.c_str());
-				string wrongAnswers = std::to_string(atoi(questionsCount.c_str()) - correctAnswersCount);
-				
-				personalStatus.push_back(gamesCount);
-				personalStatus.push_back(correctAnswers);
-				personalStatus.push_back(wrongAnswers);
-				personalStatus.push_back(avgTime.substr(0, 4));
-			}
-
-			else if (s == SQLITE_DONE)
-			{
-				break;
-			}
-
-			else
-			{
-				sqlite3_finalize(stmt);
-				throw exception(RETRIVING_ERROR);
-			}
+			correctAnswerCount = 0;
+			wrongAnswerCount = 0;
+			timeAvg = "0";
 		}
-
-		sqlite3_finalize(stmt);
-		return personalStatus;
+		personalStatus.push_back(std::to_string(gamesCount));
+		personalStatus.push_back(std::to_string(correctAnswerCount));
+		personalStatus.push_back(std::to_string(wrongAnswerCount));
+		personalStatus.push_back(timeAvg);
 	}
 
 	catch (exception& e)
@@ -351,12 +335,13 @@ bool DataBase::updateGameStatus(int gameID)
 	time_t timeNow = time(0);
 	string date = ctime(&timeNow);
 	string status = "1";
-
-	string updateGameStatus = "UPDATE t_games SET status = '" + status + "', end_time = '" + date + "' WHERE game_id = '" + std::to_string(gameID) + "';";
+	
+	stringstream updateGameStatus;
+	updateGameStatus << "UPDATE t_games SET status = " << '"' <<  status << '"' << ", end_time = " << '"' << date << '"'<< " WHERE game_id = " << '"' << std::to_string(gameID) << '"';
 
 	try
 	{
-		rc = sqlite3_exec(_db, updateGameStatus.c_str(), nullptr, nullptr, &zErrMsg);
+		rc = sqlite3_exec(_db, updateGameStatus.str().c_str(), nullptr, nullptr, &zErrMsg);
 	
 		if (rc != SQLITE_OK)
 		{

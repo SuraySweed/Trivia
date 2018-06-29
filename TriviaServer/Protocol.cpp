@@ -214,10 +214,15 @@ void Protocol::response126(SOCKET _socket, vector<string> personalStatus, string
 		res126 << _myHelper.getPaddedNumber(std::stoi(personalStatus[1]), 6);
 		res126 << _myHelper.getPaddedNumber(std::stoi(personalStatus[2]), 6);
 
-
-		res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[0], 2);
-		res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[1], 2);
-
+		if (vectorTimeSpliter[0] > 0)
+		{
+			res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[0], 2);
+			res126 << _myHelper.getPaddedNumber(vectorTimeSpliter[1], 2);
+		}
+		else
+		{
+			res126 << "0000";
+		}
 		_myHelper.sendData(_socket, res126.str());
 	}
 	else
