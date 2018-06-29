@@ -23,7 +23,6 @@ C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaPro
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.BestScoresForm.resources
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.CreateRoomForm.resources
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.myStatusForm.resources
-C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\TriviaClient.csprojAssemblyReference.cache
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.SignUp.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.BestScoresForm.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.CreateRoomForm.resources

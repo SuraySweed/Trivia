@@ -177,6 +177,7 @@
             // CreateRoomButton
             // 
             this.CreateRoomButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.CreateRoomButton.Enabled = false;
             this.CreateRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CreateRoomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateRoomButton.ForeColor = System.Drawing.Color.White;
@@ -192,6 +193,7 @@
             // 
             this.JoinRoomButton.AllowDrop = true;
             this.JoinRoomButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.JoinRoomButton.Enabled = false;
             this.JoinRoomButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.JoinRoomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JoinRoomButton.ForeColor = System.Drawing.Color.White;
@@ -205,6 +207,7 @@
             // MyStatusButton
             // 
             this.MyStatusButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.MyStatusButton.Enabled = false;
             this.MyStatusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.MyStatusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MyStatusButton.ForeColor = System.Drawing.Color.White;
@@ -219,6 +222,7 @@
             // BestScoresButton
             // 
             this.BestScoresButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.BestScoresButton.Enabled = false;
             this.BestScoresButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BestScoresButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BestScoresButton.ForeColor = System.Drawing.Color.White;
@@ -335,6 +339,7 @@
             // SignOutButton
             // 
             this.SignOutButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.SignOutButton.Enabled = false;
             this.SignOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SignOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignOutButton.ForeColor = System.Drawing.Color.White;

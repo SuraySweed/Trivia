@@ -38,5 +38,15 @@ namespace NewTriviaClient
         {
 
         }
+
+        private void NamesList_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

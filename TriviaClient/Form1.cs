@@ -35,7 +35,6 @@ namespace NewTriviaClient
                 check = TriviaServerConnection.connection();
                 if (check)
                 {
-
                     break;
                 }
                 else
@@ -143,7 +142,7 @@ namespace NewTriviaClient
                 switch (status)
                 {
                     case 0:
-                        // TO DO: MNADE LLHALON ALE B3D MEFOT 
+                        // success
                         popUpText.Text = "";
 
                         this.UserName.Hide();
@@ -157,6 +156,13 @@ namespace NewTriviaClient
                         this.HelloUserLabel.Show();
 
                         this.SignUpButton.Hide();
+
+                        this.CreateRoomButton.Enabled = true;
+                        this.JoinRoomButton.Enabled = true;
+                        this.MyStatusButton.Enabled = true;
+                        this.BestScoresButton.Enabled = true;
+                        this.SignOutButton.Enabled = true;
+
                         SignOutButton.Show();
 
                         break;
@@ -474,6 +480,11 @@ namespace NewTriviaClient
 
             this.SignUpButton.Show();
             SignOutButton.Hide();
+
+            this.BestScoresButton.Enabled = false;
+            this.MyStatusButton.Enabled = false;
+            this.CreateRoomButton.Enabled = false;
+            this.JoinRoomButton.Enabled = false;
         }
 
         private void MyStatusButton_Click(object sender, EventArgs e)

@@ -53,5 +53,10 @@ namespace NewTriviaClient
                 _mainForm.Show();
             }
         }
+
+        private void CreateRoomForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -82,6 +82,7 @@
             this.StartButton.TabIndex = 31;
             this.StartButton.Text = "START GAME";
             this.StartButton.UseVisualStyleBackColor = false;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // button1
             // 
@@ -116,6 +117,7 @@
             this.NamesList.Name = "NamesList";
             this.NamesList.Size = new System.Drawing.Size(527, 180);
             this.NamesList.TabIndex = 36;
+            this.NamesList.SelectedIndexChanged += new System.EventHandler(this.NamesList_SelectedIndexChanged_1);
             // 
             // NewlyCreatedRoom
             // 
