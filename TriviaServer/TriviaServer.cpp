@@ -276,6 +276,34 @@ void TriviaServer::handleSignout(RecievedMessage * msg)
 	}
 }
 
+void TriviaServer::handleForgotPassworrd(RecievedMessage * msg)
+{
+	string username = msg->getValues()[0];
+
+	cout << "--------------------" << endl;
+	cout << "handleRecievedMessages: msgCode = 227, client_socket : " << msg->getSock() << endl;
+
+	try
+	{
+		string password = _db.restPassword(username);
+		if (password != "")
+		{
+			_Protocol.response127(msg->getSock(), password, true);
+			cout << "SEND: password is found. username : " << username << ", password : << " << password << ", socket = " << msg->getSock() << endl;
+		}
+		else
+		{
+			_Protocol.response127(msg->getSock(), password, false);
+			cout << "SEND: password is not found. username : " << username << ", password : " << password << ", socket = " << msg->getSock() << endl;
+		}
+	}
+	catch (exception& e)
+	{
+		cout << e.what() << endl;
+	}
+	cout << "--------------------" << endl;
+}
+
 void TriviaServer::handleLeaveGame(RecievedMessage * msg)
 {
 	if (msg->getUser()->leaveGame())
@@ -566,6 +594,10 @@ void TriviaServer::handleRecievedMessage()
 			this->handleGetPersonalStatus(rcvMsg);
 			break;
 
+		case MT_CLIENT_FORGOT_PASSWORD:
+			this->handleForgotPassworrd(rcvMsg);
+			break;
+
 		default:
 			this->safeDeleteUser(rcvMsg);
 
@@ -693,9 +725,18 @@ RecievedMessage * TriviaServer::buildRecieveMessage(SOCKET sock, int msgCode)
 		RecievedMessage * msg = new RecievedMessage(sock, msgCode);
 		return msg;
 	}
-	else if( msgCode == MT_CLIENT_GET_PERSONAL_STATUS)
+	else if(msgCode == MT_CLIENT_GET_PERSONAL_STATUS)
 	{
 		RecievedMessage * msg = new RecievedMessage(sock, msgCode);
+		return msg;
+	}
+	else if (msgCode == MT_CLIENT_FORGOT_PASSWORD)
+	{
+		byte = Helper::getIntPartFromSocket(sock, 4);
+		parameters.push_back(string(Helper::getStringPartFromSocket(sock, byte)));
+
+		RecievedMessage * msg = new RecievedMessage(sock, msgCode, parameters);
+		parameters.clear();
 		return msg;
 	}
 	else

@@ -55,5 +55,10 @@ namespace NewTriviaClient
             this.Close();
             _mainForm.Show();
         }
+
+        private void SignUp_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

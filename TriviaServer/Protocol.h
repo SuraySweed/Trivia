@@ -57,7 +57,7 @@ public:
 	string response121(vector<User*> users, DataBase DB);
 	void response124(SOCKET _socket, vector<string> top3_Scores, string username);
 	void response126(SOCKET _socket, vector<string> personalStatus, string username);
-
+	void response127(SOCKET _socket, string password, bool userFound); // 0 password returned   1 user not found
 
 private:
 	Helper _myHelper;

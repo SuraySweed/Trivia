@@ -132,7 +132,7 @@ namespace NewTriviaClient
         {
             int msgCode = Int32.Parse(MsgFromServer.Substring(0, 3));
 
-            if(msgCode == 0)
+            if (msgCode == 0)
             {
                 // nothing it just connected
             }
@@ -151,7 +151,7 @@ namespace NewTriviaClient
                         this.Password_Text.Hide();
                         this.SignInButton.Hide();
                         this.Show_Password.Hide();
-
+                        this.Forgot_Password.Hide();
                         this.HelloUserLabel.Text = "Hello " + User_Name.Text;
                         this.HelloUserLabel.Show();
 
@@ -175,7 +175,7 @@ namespace NewTriviaClient
                         // is aleardy connected
                         popUpText.Text = "this user is already signed in!!";
                         break;
-                        
+
                 }
                 return null;
             }
@@ -203,6 +203,24 @@ namespace NewTriviaClient
                 }
                 return null;
             }
+            else if (msgCode == ServerCodes.GET_FORGOT_PASSWORD)
+            {
+                int isFound = Int32.Parse(MsgFromServer[3].ToString());
+
+                if (isFound == 1)
+                {
+                    int passwordLength = Int32.Parse(MsgFromServer.Substring(4, 4));
+                    string password = MsgFromServer.Substring(8, passwordLength);
+
+                    return "User is Found.!, Password : " + password;
+                }
+                else
+                {
+                    return "User not found in the DATABASE.!";
+                }
+                return null;
+            }
+
             else if (msgCode == ServerCodes.SEND_ROOMS_LIST)
             {
                 int numOfRooms = Int32.Parse(MsgFromServer.Substring(3, 4));
@@ -475,7 +493,7 @@ namespace NewTriviaClient
             this.Password_Text.Show();
             this.Show_Password.Show();
             this.SignInButton.Show();
-
+            this.Forgot_Password.Show();
             this.HelloUserLabel.Hide();
 
             this.SignUpButton.Show();
@@ -559,6 +577,15 @@ namespace NewTriviaClient
             {
                 Password_Text.UseSystemPasswordChar = true;
             }
+        }
+
+        private void Forgot_Password_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 f = this as Form1;
+
+            ForgotPassword createRoomForm = new ForgotPassword(ref f);
+            createRoomForm.Show();
         }
     }
 
@@ -714,6 +741,13 @@ namespace NewTriviaClient
             messageToSend = "225";
             return messageToSend;
         }
+
+        public string GetPassword(string username)
+        {
+            messageToSend = "227" + getPaddedNumber(username.Length, 4) + username;
+            return messageToSend;
+        }
+
         public string LeaveApp()
         {
             messageToSend = "299";
@@ -736,6 +770,7 @@ namespace NewTriviaClient
         public const int GAME_IS_FINISHED = 121;
         public const int GET_BEST_SCORES_FROM_SERVER = 124;
         public const int GET_PERSONAL_STATUS_FROM_SERVER = 126;
+        public const int GET_FORGOT_PASSWORD = 127;
     }
 
    

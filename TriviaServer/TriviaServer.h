@@ -43,6 +43,7 @@ enum MessageType : byte
 	MT_CLIENT_LEAVE_GAME = 222,
 	MT_CLIENT_GET_BEST_SCORE = 223,
 	MT_CLIENT_GET_PERSONAL_STATUS = 225,
+	MT_CLIENT_FORGOT_PASSWORD = 227,
 };
 
 
@@ -66,6 +67,7 @@ private:
 	User* handleSignin(RecievedMessage* msg);
 	bool handleSignup(RecievedMessage* msg);
 	void handleSignout(RecievedMessage* msg);
+	void handleForgotPassworrd(RecievedMessage* msg);
 
 	void handleLeaveGame(RecievedMessage* msg);
 	void handleStartGame(RecievedMessage* msg);

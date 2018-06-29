@@ -117,6 +117,22 @@ bool DataBase::isUserAndPassMatch(string username, string password)
 	return true;
 }
 
+string DataBase::restPassword(string username)
+{
+	stringstream restPassword;
+	int rc;
+
+	restPassword << "SELECT password from t_users WHERE username = " << '"' << username << '"';
+	rc = sqlite3_exec(_db, restPassword.str().c_str(), callbackCount, 0, &zErrMsg);
+
+	if (results.size() == 0)
+	{
+		return "";
+	}
+
+	return results["password"][0];
+}
+
 vector<Question*> DataBase::initQuestion(int numberOfQustions)
 {
 	vector<Question*> _questionsVector;

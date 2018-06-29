@@ -238,6 +238,23 @@ void Protocol::response126(SOCKET _socket, vector<string> personalStatus, string
 	cout << "--------------------" << endl;
 }
 
+void Protocol::response127(SOCKET _socket, string password, bool userFound)
+{
+	stringstream res127;
+	res127 << "127" << userFound;
+	
+	if (userFound)
+	{
+		res127 << _myHelper.getPaddedNumber(password.length(), 4) << password;
+	}
+	else
+	{
+		res127 << "    ";
+	}
+
+	_myHelper.sendData(_socket, res127.str());
+}
+
 
 
 
