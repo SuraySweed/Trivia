@@ -244,7 +244,7 @@ namespace NewTriviaClient
                     Rooms.Add(roomID, roomName);
                 }
 
-                return null;
+                return Rooms;
                 // Send Dict in Function
 
             }
@@ -274,7 +274,7 @@ namespace NewTriviaClient
                         Users.Add(userName);
                     }
 
-                    return null;// Send usernames list to the function
+                    return Users;// Send usernames list to the function
 
                 }
             }
@@ -321,8 +321,9 @@ namespace NewTriviaClient
             {
                 return null;
             }
-            else if (msgCode == ServerCodes.RESPOND_TO_QUESTION_WITH_ANSWERS)
+            else if (msgCode == ServerCodes.RESPOND_TO_QUESTION_WITH_ANSWERS) // start game
             {
+                List<string> questionWithAnswersList = new List<string>();
                 int sizeSum = 0;
 
                 int QuestionSize = Int32.Parse(MsgFromServer.Substring(3, 3));
@@ -350,7 +351,13 @@ namespace NewTriviaClient
 
                 sizeSum += ans4Size;
 
-                return null;
+                questionWithAnswersList.Add(Question);
+                questionWithAnswersList.Add(ans1);
+                questionWithAnswersList.Add(ans2);
+                questionWithAnswersList.Add(ans3);
+                questionWithAnswersList.Add(ans4);
+
+                return questionWithAnswersList;
             }
             else if (msgCode == ServerCodes.RESPOND_TO_USERS_ANS)
             {
@@ -765,7 +772,7 @@ namespace NewTriviaClient
         public const int RESPOND_TO_LEAVE_ROOM = 112;
         public const int RESPOND_TO_CREATE_ROOM = 114;
         public const int RESPOND_TO_CLOSE_ROOM = 116;
-        public const int RESPOND_TO_QUESTION_WITH_ANSWERS = 118;
+        public const int RESPOND_TO_QUESTION_WITH_ANSWERS = 118; // start game
         public const int RESPOND_TO_USERS_ANS = 120;
         public const int GAME_IS_FINISHED = 121;
         public const int GET_BEST_SCORES_FROM_SERVER = 124;

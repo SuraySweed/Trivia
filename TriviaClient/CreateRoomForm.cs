@@ -38,8 +38,17 @@ namespace NewTriviaClient
 
             if(_mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer()))
             {
+                string roomID;
+
+                _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.GetRooms());
+
+                Dictionary<string, string> Rooms = new Dictionary<string, string>();
+                Rooms = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+                roomID = Rooms.FirstOrDefault(x => x.Value == roomName).Key;
+
+
                 Form1 f = _mainForm as Form1;
-                NewlyCreatedRoom newlyCreatedRoom = new NewlyCreatedRoom(ref f);
+                NewlyCreatedRoom newlyCreatedRoom = new NewlyCreatedRoom(ref f, roomID);
                 newlyCreatedRoom.NameOfUser.Text = NameOfUser.Text;
                 
                 newlyCreatedRoom.Show();

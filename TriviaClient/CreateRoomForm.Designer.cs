@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.BackButton = new System.Windows.Forms.Button();
-            this.NameOfUser = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.RoomName = new System.Windows.Forms.Label();
             this.NumOPlayers = new System.Windows.Forms.Label();
@@ -40,6 +39,7 @@
             this.Num_Of_Questions = new System.Windows.Forms.TextBox();
             this.Time_For_Questions = new System.Windows.Forms.TextBox();
             this.CreateRoomButton = new System.Windows.Forms.Button();
+            this.NameOfUser = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // BackButton
@@ -54,16 +54,6 @@
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
-            // NameOfUser
-            // 
-            this.NameOfUser.AutoSize = true;
-            this.NameOfUser.Font = new System.Drawing.Font("Miriam Fixed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameOfUser.Location = new System.Drawing.Point(44, 447);
-            this.NameOfUser.Name = "NameOfUser";
-            this.NameOfUser.Size = new System.Drawing.Size(87, 20);
-            this.NameOfUser.TabIndex = 2;
-            this.NameOfUser.Text = "label1";
             // 
             // label1
             // 
@@ -158,6 +148,16 @@
             this.CreateRoomButton.UseVisualStyleBackColor = false;
             this.CreateRoomButton.Click += new System.EventHandler(this.CreateRoomButton_Click);
             // 
+            // NameOfUser
+            // 
+            this.NameOfUser.AutoSize = true;
+            this.NameOfUser.Font = new System.Drawing.Font("Miriam Fixed", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameOfUser.Location = new System.Drawing.Point(44, 447);
+            this.NameOfUser.Name = "NameOfUser";
+            this.NameOfUser.Size = new System.Drawing.Size(87, 20);
+            this.NameOfUser.TabIndex = 2;
+            this.NameOfUser.Text = "label1";
+            // 
             // CreateRoomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,7 +187,6 @@
         #endregion
 
         private System.Windows.Forms.Button BackButton;
-        public System.Windows.Forms.Label NameOfUser;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label RoomName;
         private System.Windows.Forms.Label NumOPlayers;
@@ -198,5 +197,6 @@
         private System.Windows.Forms.TextBox Num_Of_Questions;
         private System.Windows.Forms.TextBox Time_For_Questions;
         private System.Windows.Forms.Button CreateRoomButton;
+        public System.Windows.Forms.Label NameOfUser;
     }
 }
