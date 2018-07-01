@@ -29,5 +29,10 @@ namespace NewTriviaClient
             Form1 trivia = new Form1();
             trivia.Show();
         }
+
+        private void ErrorForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace NewTriviaClient
 
 
                 Form1 f = _mainForm as Form1;
-                NewlyCreatedRoom newlyCreatedRoom = new NewlyCreatedRoom(ref f, roomID);
+                NewlyCreatedRoom newlyCreatedRoom = new NewlyCreatedRoom(ref f, roomID, timeForQuestion, questionsNum);
                 newlyCreatedRoom.NameOfUser.Text = NameOfUser.Text;
                 
                 newlyCreatedRoom.Show();

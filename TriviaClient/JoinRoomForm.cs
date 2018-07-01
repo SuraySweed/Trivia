@@ -50,12 +50,29 @@ namespace NewTriviaClient
             {
                 RoomsList.Items.Add(room.Value);
             }
+
+            JoinButton.Enabled = true;
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
             this.Close();
             _mainForm.Show();
+        }
+
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            string roomID = rooms.FirstOrDefault(x => x.Value == RoomsList.SelectedItem).Key;
+            List<int> numOfQuestionsAndQuestionTime = new List<int>();
+
+            _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.JoinRoom(roomID));
+            numOfQuestionsAndQuestionTime = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+
+            this.Hide();
+            Form1 f = _mainForm as Form1;
+            WaitingForGame waitingForGame = new WaitingForGame(ref f, roomID, numOfQuestionsAndQuestionTime);
+
+            waitingForGame.Show();
         }
     }
 }

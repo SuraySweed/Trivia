@@ -14,10 +14,16 @@ namespace NewTriviaClient
     {
         Form1 _mainForm = new Form1();
         string _roomID;
-        public NewlyCreatedRoom(ref Form1 main_form, string roomID)
+        string _timeForAnswer;
+        string _numOfQuestions;
+
+        public NewlyCreatedRoom(ref Form1 main_form, string roomID, string TimeforAns, string numOfQuestions)
         {
             _mainForm = main_form;
             _roomID = roomID;
+            _timeForAnswer = TimeforAns;
+            _numOfQuestions = numOfQuestions;
+
             InitializeComponent();
             
         }
@@ -66,8 +72,10 @@ namespace NewTriviaClient
             questionAndAnswers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
             Form1 f = _mainForm as Form1;
-            QuestionForm questionForm = new QuestionForm(ref f);
-
+            QuestionForm questionForm = new QuestionForm(ref f, questionAndAnswers, _timeForAnswer, _numOfQuestions);
+            questionForm.NameOfUser.Text = NameOfUser.Text;
+            questionForm.Show();
+            this.Hide();
              
 
         }

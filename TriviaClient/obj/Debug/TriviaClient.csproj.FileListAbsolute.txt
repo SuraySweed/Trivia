@@ -1,7 +1,6 @@
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\bin\Debug\NewTriviaClient.exe.config
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\bin\Debug\NewTriviaClient.exe
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\bin\Debug\NewTriviaClient.pdb
-C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\TriviaClient.csprojResolveAssemblyReference.cache
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.ErrorForm.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.Form1.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.Properties.Resources.resources
@@ -34,3 +33,5 @@ C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\Tr
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.ForgotPassword.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.JoinRoomForm.resources
 C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.QuestionForm.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.WaitingForGame.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\TriviaClient.csprojResolveAssemblyReference.cache

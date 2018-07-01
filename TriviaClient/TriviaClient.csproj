@@ -108,6 +108,12 @@
     <Compile Include="SignUp.Designer.cs">
       <DependentUpon>SignUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaitingForGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitingForGame.Designer.cs">
+      <DependentUpon>WaitingForGame.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BestScoresForm.resx">
       <DependentUpon>BestScoresForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForGame.resx">
+      <DependentUpon>WaitingForGame.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

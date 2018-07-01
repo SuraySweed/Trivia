@@ -306,7 +306,7 @@ namespace NewTriviaClient
             }
             else if (msgCode == ServerCodes.RESPOND_TO_LEAVE_ROOM)
             {
-                return null;
+                return MsgFromServer[4] == '0' ? true : false; 
             }
             else if (msgCode == ServerCodes.RESPOND_TO_CREATE_ROOM)
             {
@@ -341,19 +341,20 @@ namespace NewTriviaClient
                 string ans1 = MsgFromServer.Substring(6 + 3 + sizeSum, ans1Size);
 
                 sizeSum += ans1Size;
+                // "118020Who is Eddie Vedder?011Phone model007TV Show008Computer008Musician
 
-                int ans2Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3)); //problem
-                string ans2 = MsgFromServer.Substring(6 + 3 + sizeSum, ans2Size);
+                int ans2Size = Int32.Parse(MsgFromServer.Substring(6 + 3 + sizeSum, 3)); //problem
+                string ans2 = MsgFromServer.Substring(6 + 3 * 2 + sizeSum, ans2Size);
 
                 sizeSum += ans2Size;
 
-                int ans3Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
-                string ans3 = MsgFromServer.Substring(6 + 3 + sizeSum, ans3Size);
+                int ans3Size = Int32.Parse(MsgFromServer.Substring(6 + 3 * 2 + sizeSum, 3));
+                string ans3 = MsgFromServer.Substring(6 + 3 * 3 + sizeSum, ans3Size);
 
                 sizeSum += ans3Size;
 
-                int ans4Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
-                string ans4 = MsgFromServer.Substring(6 + 3 + sizeSum, ans4Size);
+                int ans4Size = Int32.Parse(MsgFromServer.Substring(6 + 3 * 3 + sizeSum, 3));
+                string ans4 = MsgFromServer.Substring(6 + 3 * 4 + sizeSum, ans4Size);
 
                 sizeSum += ans4Size;
 
@@ -367,13 +368,15 @@ namespace NewTriviaClient
             }
             else if (msgCode == ServerCodes.RESPOND_TO_USERS_ANS)
             {
-                int status = Int32.Parse(MsgFromServer[4].ToString());
+                int status = Int32.Parse(MsgFromServer[3].ToString());
 
                 switch (status)
                 {
-                    case 0: // correct answer
+                    case 0: // wrong answer
+                        return false;
                         break;
-                    case 1: // wrong answer
+                    case 1: // correct answer
+                        return true;
                         break;
                 }
                 return null;
