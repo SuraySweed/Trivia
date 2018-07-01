@@ -204,6 +204,7 @@
             this.JoinRoomButton.TabIndex = 10;
             this.JoinRoomButton.Text = "Join Room";
             this.JoinRoomButton.UseVisualStyleBackColor = false;
+            this.JoinRoomButton.Click += new System.EventHandler(this.JoinRoomButton_Click);
             // 
             // MyStatusButton
             // 

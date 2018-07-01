@@ -14,7 +14,7 @@ namespace NewTriviaClient
     {
         Form1 _mainForm = new Form1();
 
-        public QuestionForm(Form1 mainForm)
+        public QuestionForm(ref Form1 mainForm)
         {
             _mainForm = mainForm;
             InitializeComponent();

@@ -31,3 +31,6 @@ C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\Ne
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.pdb
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\bin\Debug\NewTriviaClient.pdb
 C:\Users\magshimim\Desktop\Trivia Project\TriviaClient\TriviaClient\obj\Debug\TriviaClient.csprojAssemblyReference.cache
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.ForgotPassword.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.JoinRoomForm.resources
+C:\Users\magshimim\Desktop\HomeWorks\2nd YEAR\C++Programing\Semester 2\TrivyaProject-RabeaZidan\TriviaClient\TriviaClient\obj\Debug\NewTriviaClient.QuestionForm.resources

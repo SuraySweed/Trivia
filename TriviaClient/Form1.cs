@@ -250,7 +250,7 @@ namespace NewTriviaClient
             }
             else if (msgCode == ServerCodes.SEND_USERS_LIST)
             {
-                int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 4));
+                int numOfUsers = Int32.Parse(MsgFromServer.Substring(3, 3));
                 if (numOfUsers == 0)
                 {
 
@@ -259,7 +259,7 @@ namespace NewTriviaClient
                 {
                     List<string> Users = new List<string>();
 
-                    int firstUserNameSizeIndex = 4;
+                    int firstUserNameSizeIndex = 6;
                     string userName;
                     int NameSize;
                     int NameSizeSum = 0;
@@ -284,9 +284,15 @@ namespace NewTriviaClient
                 switch (status)
                 {
                     case 0: // success
+                        List<int> list = new List<int>();
 
                         int numOfQuestions = Int32.Parse(MsgFromServer.Substring(4, 2));
                         int QuestionTimeInSec = Int32.Parse(MsgFromServer.Substring(6, 2));
+
+                        list.Add(numOfQuestions);
+                        list.Add(QuestionTimeInSec);
+
+                        return list;
 
                         break;
                     case 1: // room is full
@@ -336,7 +342,7 @@ namespace NewTriviaClient
 
                 sizeSum += ans1Size;
 
-                int ans2Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3));
+                int ans2Size = Int32.Parse(MsgFromServer.Substring(6 + sizeSum, 3)); //problem
                 string ans2 = MsgFromServer.Substring(6 + 3 + sizeSum, ans2Size);
 
                 sizeSum += ans2Size;
@@ -593,6 +599,19 @@ namespace NewTriviaClient
 
             ForgotPassword createRoomForm = new ForgotPassword(ref f);
             createRoomForm.Show();
+        }
+
+        private void JoinRoomButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 f = this as Form1;
+
+            JoinRoomForm joinRoomForm = new JoinRoomForm(ref f);
+
+            joinRoomForm.NameOfUser.Text = this.User_Name.Text;
+            joinRoomForm.Show();
+
+
         }
     }
 

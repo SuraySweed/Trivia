@@ -30,10 +30,12 @@ namespace NewTriviaClient
 
             _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.GetUsersInRoom(_roomID));
             UsersInRoom = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
-
-            foreach(string user in UsersInRoom)
+            if (!(UsersInRoom is null))
             {
-                NamesList.Items.Add(user);
+                foreach (string user in UsersInRoom) 
+                {
+                    NamesList.Items.Add(user);
+                }
             }
             
         }
