@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionForm));
             this.ExitButton = new System.Windows.Forms.Button();
             this.NameOfUser = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.Ans4Button = new System.Windows.Forms.Button();
             this.TimeLeft = new System.Windows.Forms.Label();
             this.ScoreText = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // ExitButton
@@ -170,6 +172,12 @@
             this.ScoreText.TabIndex = 30;
             this.ScoreText.Text = "Score";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // QuestionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,5 +217,6 @@
         private System.Windows.Forms.Button Ans4Button;
         private System.Windows.Forms.Label TimeLeft;
         private System.Windows.Forms.Label ScoreText;
+        private System.Windows.Forms.Timer timer1;
     }
 }

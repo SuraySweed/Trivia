@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,10 +13,12 @@ namespace NewTriviaClient
 {
     public partial class QuestionForm : Form
     {
+        Thread _thread;
         Form1 _mainForm = new Form1();
         List<string> _questionsAndAnwers;
         string _timeToAnswer;
         string _numOfQuestions;
+        int _currentQuestion = 1;
 
         public QuestionForm(ref Form1 mainForm, List<string> QuestionAndAnswers, string timeToAns, string numOfQuestion)
         {
@@ -40,11 +43,19 @@ namespace NewTriviaClient
         {
             int _NumOfQuestion = 1;
 
+            Thread thread = new Thread(getNextQuestion);
+            _thread = thread;
+
+            _thread.Start();
+        }
+
+        private void getNextQuestion()
+        {
             for (int i = 0; i < Int32.Parse(_numOfQuestions); i++)
             {
-                TimeLeft.Text = _timeToAnswer;
+                _timeToAnswer = TimeLeft.Text;
 
-                NumOfQuestion.Text = "Question #" + _NumOfQuestion.ToString();
+                NumOfQuestion.Text = "Question #" + _currentQuestion.ToString();
 
                 Question.Text = _questionsAndAnwers[0];
                 Ans1Button.Text = _questionsAndAnwers[1];
@@ -52,7 +63,7 @@ namespace NewTriviaClient
                 Ans3Button.Text = _questionsAndAnwers[3];
                 Ans4Button.Text = _questionsAndAnwers[4];
 
-                _NumOfQuestion++;
+                _currentQuestion++;
 
                 _questionsAndAnwers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
             }
@@ -115,6 +126,21 @@ namespace NewTriviaClient
             else
             {
                 Ans4Button.BackColor = Color.Red;
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TimeLeft.Text = (Int32.Parse(TimeLeft.Text) - 1).ToString();
+
+            if(TimeLeft.Text == "0")
+            {
+                _thread.Join();
+            }
+
+            if(_currentQuestion == Int32.Parse(_numOfQuestions))
+            {
+                _thread.Join();
             }
         }
     }

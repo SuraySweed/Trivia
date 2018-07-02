@@ -373,7 +373,7 @@ bool TriviaServer::handleCreateRoom(RecievedMessage * msg)
 			_roomsList.insert(pair<int, Room*>(_roomIdSequence, user->getRoom()));
 			_Protocol.response114(0, msg->getSock());
 			cout << "Message sent to user : " << user->getUsername() << ", msg : 1140" << endl;
-			cout << "Room was created, Admin: " << user->getUsername() << ", room name : " << user->getRoom()->getName() << ", room id : " << user->getRoom()->getID() << ", players number : " << user->getRoom()->getMaxUsersNumber() << ", question number : " << user->getRoom()->getQuestionNumber() << ", answer time : " << user->getRoom()->getQuestionTime();
+			cout << "Room was created, Admin: " << user->getUsername() << ", room name : " << user->getRoom()->getName() << ", room id : " << user->getRoom()->getID() << ", players number : " << user->getRoom()->getMaxUsersNumber() << ", question number : " << user->getRoom()->getQuestionNumber() << ", answer time : " << user->getRoom()->getQuestionTime() << endl;
 			cout << "--------------------" << endl;
 
 			return true;
