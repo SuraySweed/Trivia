@@ -16,6 +16,7 @@ Game::Game(const vector<User*> &players, int questionNumber, DataBase &db) : _db
 		_questionNumber = questionNumber;
 		_gameID = _db.insertNewGame();
 		_currentTurnAnswers = 0;
+		_currQuestionIndex = 0;
 
 		if (_gameID == -1)
 		{
@@ -89,12 +90,19 @@ bool Game::handleNextTurn()
 		this->handleFinishGame();
 		return false;
 	}
-	if (_players.size() == _currentTurnAnswers + 1)
+	if (_players.size() == _currentTurnAnswers )
 	{
-		if (_questionNumber = _currQuestionIndex + 1)
+		if (_questionNumber == _currQuestionIndex + 1)
 		{
 			this->handleFinishGame();
 			return false;
+		}
+		else
+		{
+			_currQuestionIndex++;
+			//_currentTurnAnswers = 0;
+			this->sendQuestionToAllUsers();
+			return true;
 		}
 	}
 	else

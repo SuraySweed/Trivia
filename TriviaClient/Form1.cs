@@ -411,7 +411,7 @@ namespace NewTriviaClient
                         Users[userName] = UserScore;
                     }
 
-                    return null;// Send usernames list to the function
+                    return Users;// Send usernames list to the function
 
                 }
             }

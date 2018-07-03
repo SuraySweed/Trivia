@@ -41,10 +41,6 @@ namespace NewTriviaClient
 
         private void QuestionForm_Load(object sender, EventArgs e)
         {
-            //Thread thread = new Thread(getNextQuestion);
-            //_thread = thread;
-
-            //_thread.Start();
             ScoreText.Text = _score.ToString();
             getFirstQuestion();
         }
@@ -62,31 +58,52 @@ namespace NewTriviaClient
             Ans4Button.Text = _questionsAndAnwers[4];
         }
 
-        private void getNextQuestion()
+        private void getNextQuestion() 
         {
-            Ans1Button.BackColor = Color.SteelBlue;
-            Ans2Button.BackColor = Color.SteelBlue;
-            Ans3Button.BackColor = Color.SteelBlue;
-            Ans4Button.BackColor = Color.SteelBlue;
+            if ((_currentQuestion - 1) == Int32.Parse(_numOfQuestions))
+            {
+                
 
-            _questionsAndAnwers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+                Dictionary<string, int> scores = new Dictionary<string, int>();
 
-            TimeLeft.Text = _timeToAnswer;
+                _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
+                timer1.Enabled = false;
+                scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
-            NumOfQuestion.Text = "Question #" + _currentQuestion.ToString();
+                string messageToShow = "";
 
-            Question.Text = _questionsAndAnwers[0];
-            Ans1Button.Text = _questionsAndAnwers[1];
-            Ans2Button.Text = _questionsAndAnwers[2];
-            Ans3Button.Text = _questionsAndAnwers[3];
-            Ans4Button.Text = _questionsAndAnwers[4];
+                foreach (KeyValuePair<string, int> user in scores)
+                {
+                    messageToShow += "User: " + user.Key + " Score: " + user.Value + "\n";
+                }
 
-            _currentQuestion++;
+                MessageBox.Show(messageToShow);
+                
 
-            //lock (_buttonMutex)
-            //{
+                this.Close();
+                _mainForm.Show();
+            }
+            else
+            {
+                Ans1Button.BackColor = Color.SteelBlue;
+                Ans2Button.BackColor = Color.SteelBlue;
+                Ans3Button.BackColor = Color.SteelBlue;
+                Ans4Button.BackColor = Color.SteelBlue;
 
-            //}
+                _questionsAndAnwers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+
+                TimeLeft.Text = _timeToAnswer;
+
+                NumOfQuestion.Text = "Question #" + _currentQuestion.ToString();
+
+                Question.Text = _questionsAndAnwers[0];
+                Ans1Button.Text = _questionsAndAnwers[1];
+                Ans2Button.Text = _questionsAndAnwers[2];
+                Ans3Button.Text = _questionsAndAnwers[3];
+                Ans4Button.Text = _questionsAndAnwers[4];
+
+                _currentQuestion++;
+            }
         }
 
         private void Ans1Button_Click(object sender, EventArgs e)
@@ -186,38 +203,39 @@ namespace NewTriviaClient
 
             if (TimeLeft.Text == "0")
             {
+                
                 if (_currentQuestion == Int32.Parse(_numOfQuestions))
                 {
-                    //MessageBox.Show("Score:\n" + NameOfUser.Text + ": " + _score);
+                    Dictionary<string, int> scores = new Dictionary<string, int>();
+
+                    _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
+
+                    scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+
+                    string messageToShow = "";
+
+                    foreach (KeyValuePair<string, int> user in scores)
+                    {
+                        messageToShow += "User: " + user.Key + " Score: " + user.Value + "\n";
+                    }
+
+                    MessageBox.Show(messageToShow);
                     timer1.Enabled = false;
+
+                    this.Close();
+                    _mainForm.Show();
                 }
                 else
                 {
                     int time = Int32.Parse(_timeToAnswer) - Int32.Parse(TimeLeft.Text);
                     _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.sendAnswer("5", time.ToString()));
 
-                    _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+                   dynamic somthing =  _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
                     getNextQuestion();
                 }
             }
-            if (_currentQuestion == Int32.Parse(_numOfQuestions))
-            {
-                timer1.Enabled = false;
-
-                Dictionary<string, int> scores = new Dictionary<string, int>();
-
-                scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
-
-                string messageToShow = "";
-
-                foreach(KeyValuePair<string, int> user in scores)
-                {
-                    messageToShow += "User: " + user.Key + " Score: " + user.Value + "\n";
-                }
-
-                MessageBox.Show(messageToShow);
-            }
+            
 
 
 

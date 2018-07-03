@@ -360,7 +360,7 @@ bool DataBase::updateGameStatus(int gameID)
 	{
 		rc = sqlite3_exec(_db, updateGameStatus.str().c_str(), nullptr, nullptr, &zErrMsg);
 	
-		if (rc != SQLITE_OK)
+		if (rc != 1)
 		{
 			throw exception(UPDATING_ERROR);
 			return false;
@@ -383,7 +383,7 @@ bool DataBase::addAnswerToPlayer(int gameID, string username, int questionID, st
 	try
 	{
 		rc = sqlite3_exec(_db, addAnswerToPlayers.str().c_str(), NULL, 0, &zErrMsg);
-		if (rc != SQLITE_OK)
+		if (rc != 1)
 		{
 			throw exception(INSERTING_ERROR);
 			return false;

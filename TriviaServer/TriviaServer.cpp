@@ -306,7 +306,7 @@ void TriviaServer::handleForgotPassworrd(RecievedMessage * msg)
 
 void TriviaServer::handleLeaveGame(RecievedMessage * msg)
 {
-	if (msg->getUser()->leaveGame())
+	if (this->getUserBySocket(msg->getSock())->leaveGame())
 	{
 		msg->getUser()->setGame(nullptr);
 	}

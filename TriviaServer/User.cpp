@@ -123,7 +123,7 @@ bool User::leaveGame()
 {
 	if (this->_currGame != nullptr)
 	{
-		if (_currGame->leaveGame(this))
+		if (!(_currGame->leaveGame(this)))
 		{
 			return true;
 		}
