@@ -119,7 +119,7 @@ void Protocol::response116(SOCKET _socket)
 	_myHelper.sendData(_socket, "116");
 }
 
-string Protocol::response118(Question * question, User* user, Room* room)
+string Protocol::response118(Question * question, User* user)
 {
 	stringstream res118;
 
@@ -141,10 +141,7 @@ string Protocol::response118(Question * question, User* user, Room* room)
 	catch (exception& e)
 	{
 		cout << e.what() << endl;
-		if (user->getUsername() == room->getAdminName())
-		{
-			res118 << "1180";
-		}
+		res118 << "1180";
 	}
 
 	return (res118.str());

@@ -129,8 +129,9 @@ string DataBase::restPassword(string username)
 	{
 		return "";
 	}
-
-	return results["password"][0];
+	string password = results["password"][0];
+	results.clear();
+	return password;
 }
 
 vector<Question*> DataBase::initQuestion(int numberOfQustions)
@@ -318,11 +319,13 @@ int DataBase::insertNewGame()
 	time_t timeNow = time(0);
 	string date = ctime(&timeNow);
 	string status = "0";
-	string addingNewGame = "INSERT INTO t_games(status, start_time, end_time) VALUES ('" + status + "', '" + date + "', 'NULL');";//not sure if it is working
+	stringstream addingNewGame;
 	
+	addingNewGame << "INSERT into t_games(status, start_time, end_time) VALUES(" << '"' << status << '"' << ", " << '"' << date << '"' << ", " << "NULL)";
+
 	try
 	{
-		rc = sqlite3_exec(_db, addingNewGame.c_str(), NULL, 0, &zErrMsg);
+		rc = sqlite3_exec(_db, addingNewGame.str().c_str(), NULL, 0, &zErrMsg);
 		if (rc != SQLITE_OK)
 		{
 			return -1;
@@ -351,7 +354,7 @@ bool DataBase::updateGameStatus(int gameID)
 	string status = "1";
 	
 	stringstream updateGameStatus;
-	updateGameStatus << "UPDATE t_games SET status = " << '"' <<  status << '"' << ", end_time = " << '"' << date << '"'<< " WHERE game_id = " << '"' << std::to_string(gameID) << '"';
+	updateGameStatus << "UPDATE t_games SET status = " << '"' <<  status << ", end_time = " << '"' << date << '"'<< " WHERE game_id = " << '"' << std::to_string(gameID) << '"';
 
 	try
 	{
@@ -374,11 +377,12 @@ bool DataBase::updateGameStatus(int gameID)
 bool DataBase::addAnswerToPlayer(int gameID, string username, int questionID, string answer, bool isCorrect, int answerTime)
 {
 	int rc;
-	string addToPlayer = "INSERT INTO t_players_answers values('" + std::to_string(gameID) + "', '" + username + "', '" + std::to_string(questionID) + "', '" + answer + "', '" + std::to_string(isCorrect) + "', '" + std::to_string(answerTime) + "');";
+	stringstream addAnswerToPlayers;
+	addAnswerToPlayers << "INSERT into t_players values(" << '"' << std::to_string(gameID) << '"' << ", " << '"' << username << '"' << ", " << '"' << std::to_string(questionID) << '"' << ", " << '"' << answer << '"' << ", " << '"' << std::to_string(isCorrect) << '"' << ", " << '"' << std::to_string(answerTime) << '"' << ")";
 
 	try
 	{
-		rc = sqlite3_exec(_db, addToPlayer.c_str(), NULL, 0, &zErrMsg);
+		rc = sqlite3_exec(_db, addAnswerToPlayers.str().c_str(), NULL, 0, &zErrMsg);
 		if (rc != SQLITE_OK)
 		{
 			throw exception(INSERTING_ERROR);

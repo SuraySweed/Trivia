@@ -89,7 +89,7 @@ bool Game::handleNextTurn()
 		this->handleFinishGame();
 		return false;
 	}
-	if (_players.size() == _currentTurnAnswers)
+	if (_players.size() == _currentTurnAnswers + 1)
 	{
 		if (_questionNumber = _currQuestionIndex + 1)
 		{
@@ -122,7 +122,8 @@ bool Game::handleAnswerFromUser(User * user, int answerNumber, int time)
 	{
 	_db.addAnswerToPlayer(_gameID, user->getUsername(), _questions[_currQuestionIndex]->getID(), _questions[_currQuestionIndex]->getAnswers()[answerNumber - 1], isCorrect, time);
 	}
-	else
+
+	if(answerNumber == 5) // no more time to answer
 	{
 		_db.addAnswerToPlayer(_gameID, user->getUsername(), _questions[_currQuestionIndex]->getID(), "", isCorrect, time);
 	}
@@ -170,7 +171,7 @@ void Game::sendQuestionToAllUsers()
 	{
 		if (_questions[_currQuestionIndex]->getQuestion().length() > 0)
 		{
-			(*playersItr)->send(_Protocol.response118(_questions[_currQuestionIndex], (*playersItr), (*playersItr)->getRoom()));
+			(*playersItr)->send(_Protocol.response118(_questions[_currQuestionIndex], (*playersItr)));
 		}
 	}
 }

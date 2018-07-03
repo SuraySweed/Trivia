@@ -52,7 +52,7 @@ public:
 	void response112(SOCKET _socket, bool succesOrNot);
 	void response114(int status, SOCKET _socket); // 0 fail, 1 success
 	void response116(SOCKET _socket);
-	string response118(Question* question, User* user, Room* room);
+	string response118(Question* question, User* user);
 	string response120(bool yesOrNot);
 	string response121(vector<User*> users, DataBase DB);
 	void response124(SOCKET _socket, vector<string> top3_Scores, string username);

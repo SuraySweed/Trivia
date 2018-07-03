@@ -320,13 +320,13 @@ void TriviaServer::handleStartGame(RecievedMessage * msg)
 	try
 	{
 		Game* newGame = new Game(user->getRoom()->getUsers(), user->getRoom()->getQuestionNumber(), _db);
-		_roomsList.erase(roomID);
 		newGame->sendFirstQuestion();
+		//_roomsList.erase(roomID);
 	}
 	catch (exception& e)
 	{
 		cout << e.what() << endl;
-		_Protocol.response118(nullptr, user, user->getRoom());
+		_Protocol.response118(nullptr, user);
 	}
 }
 
