@@ -30,8 +30,6 @@ namespace NewTriviaClient
 
         private void NewlyCreatedRoom_Load(object sender, EventArgs e)
         {
-            NamesList.Items.Add(NameOfUser.Text);
-
             List<string> UsersInRoom = new List<string>();
 
             _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.GetUsersInRoom(_roomID));
@@ -67,8 +65,10 @@ namespace NewTriviaClient
         private void StartButton_Click(object sender, EventArgs e)
         {
             List<string> questionAndAnswers = new List<string>();
+            List<string> Users = new List<string>();
 
             _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.StartGame());
+            Users = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
             questionAndAnswers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
             Form1 f = _mainForm as Form1;
