@@ -62,12 +62,10 @@ namespace NewTriviaClient
         {
             if ((_currentQuestion - 1) == Int32.Parse(_numOfQuestions))
             {
-                
-
                 Dictionary<string, int> scores = new Dictionary<string, int>();
 
-                _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
-                timer1.Enabled = false;
+                //_mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
+                
                 scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
                 string messageToShow = "";
@@ -208,7 +206,7 @@ namespace NewTriviaClient
                 {
                     Dictionary<string, int> scores = new Dictionary<string, int>();
 
-                    _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
+                    //_mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
 
                     scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 

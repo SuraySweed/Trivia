@@ -179,7 +179,7 @@ void Game::sendQuestionToAllUsers()
 	{
 		if (_questions[_currQuestionIndex]->getQuestion().length() > 0)
 		{
-			(*playersItr)->send(_Protocol.response118(_questions[_currQuestionIndex], (*playersItr)));
+			(*playersItr)->send(_Protocol.response118(_questions[_currQuestionIndex]));
 		}
 	}
 }

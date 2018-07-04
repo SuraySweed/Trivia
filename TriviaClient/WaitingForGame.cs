@@ -29,7 +29,7 @@ namespace NewTriviaClient
         {
             List<string> UsersInRoom = new List<string>();
 
-            _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.GetUsersInRoom(_roomID));
+            //_mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.GetUsersInRoom(_roomID));
             UsersInRoom = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
             if (!(UsersInRoom is null))
@@ -44,6 +44,12 @@ namespace NewTriviaClient
 
             questionWithAnswersList = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
+            Form1 f = _mainForm as Form1;
+            QuestionForm questionForm = new QuestionForm(ref f, questionWithAnswersList, _numOfQuestionsAndQuestionTime[1].ToString(), _numOfQuestionsAndQuestionTime[0].ToString());
+
+            //questionForm.NameOfUser.Text = NameOfUser.Text;
+            questionForm.Show();
+            this.Close();
         }
 
         private void LeaveRoomButton_Click(object sender, EventArgs e)

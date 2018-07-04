@@ -23,6 +23,8 @@ namespace NewTriviaClient
 
         private void RoomsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            JoinButton.Enabled = true;
+
             List<string> UsersInRoom = new List<string>();
             string roomID = rooms.FirstOrDefault(x => x.Value == RoomsList.SelectedItem).Key;
 
@@ -68,11 +70,12 @@ namespace NewTriviaClient
             _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.JoinRoom(roomID));
             numOfQuestionsAndQuestionTime = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
-            this.Hide();
+            
             Form1 f = _mainForm as Form1;
             WaitingForGame waitingForGame = new WaitingForGame(ref f, roomID, numOfQuestionsAndQuestionTime);
 
             waitingForGame.Show();
+            this.Close();
         }
     }
 }

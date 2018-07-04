@@ -326,7 +326,7 @@ void TriviaServer::handleStartGame(RecievedMessage * msg)
 	catch (exception& e)
 	{
 		cout << e.what() << endl;
-		_Protocol.response118(nullptr, user);
+		_Protocol.response118(nullptr);
 	}
 }
 

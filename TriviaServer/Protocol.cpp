@@ -119,7 +119,7 @@ void Protocol::response116(SOCKET _socket)
 	_myHelper.sendData(_socket, "116");
 }
 
-string Protocol::response118(Question * question, User* user)
+string Protocol::response118(Question * question)
 {
 	stringstream res118;
 
