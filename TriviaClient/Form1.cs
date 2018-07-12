@@ -21,6 +21,8 @@ namespace NewTriviaClient
     {
         public Protocol MyProtocol = new Protocol();
         public ClientServerSocket TriviaServerConnection = new ClientServerSocket();
+        public bool _gameStarted = false;
+
         public Form1()
         {
             InitializeComponent();

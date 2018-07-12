@@ -60,15 +60,17 @@ namespace NewTriviaClient
 
         private void getNextQuestion() 
         {
-            if ((_currentQuestion - 1) == Int32.Parse(_numOfQuestions))
+            if ((_currentQuestion ) == Int32.Parse(_numOfQuestions))
             {
                 Dictionary<string, int> scores = new Dictionary<string, int>();
 
                 //_mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
                 
-                scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+                scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer()); // game is over
 
                 string messageToShow = "";
+
+                timer1.Enabled = false;
 
                 foreach (KeyValuePair<string, int> user in scores)
                 {
@@ -119,11 +121,7 @@ namespace NewTriviaClient
             {
                 Ans1Button.BackColor = Color.Red;
             }
-            if (_currentQuestion != Int32.Parse(_numOfQuestions))
-            {
-                getNextQuestion();
-                
-            }
+            getNextQuestion();
 
         }
 
@@ -142,11 +140,7 @@ namespace NewTriviaClient
             {
                 Ans2Button.BackColor = Color.Red;
             }
-            if (_currentQuestion != Int32.Parse(_numOfQuestions))
-            {
-                getNextQuestion();
-                
-            }
+            getNextQuestion();
 
         }
 
@@ -164,10 +158,7 @@ namespace NewTriviaClient
             {
                 Ans3Button.BackColor = Color.Red;
             }
-            if (_currentQuestion != Int32.Parse(_numOfQuestions))
-            {
-                getNextQuestion();
-            }
+            getNextQuestion();
 
         }
 
@@ -186,10 +177,7 @@ namespace NewTriviaClient
             {
                 Ans4Button.BackColor = Color.Red;
             }
-            if (_currentQuestion != Int32.Parse(_numOfQuestions))
-            {
-                getNextQuestion();
-            }
+            getNextQuestion();
             
 
         }
@@ -207,10 +195,16 @@ namespace NewTriviaClient
                     Dictionary<string, int> scores = new Dictionary<string, int>();
 
                     //_mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.LeaveGame());
+                    int time = Int32.Parse(_timeToAnswer) - Int32.Parse(TimeLeft.Text);
+                    _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.sendAnswer("5", time.ToString()));
+
+                    dynamic somthing = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
                     scores = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
                     string messageToShow = "";
+
+                    timer1.Enabled = false;
 
                     foreach (KeyValuePair<string, int> user in scores)
                     {
@@ -238,5 +232,7 @@ namespace NewTriviaClient
 
 
         }
+
+        
     }
 }

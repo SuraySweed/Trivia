@@ -40,16 +40,6 @@ namespace NewTriviaClient
                 }
             }
 
-            List<string> questionWithAnswersList = new List<string>();
-
-            questionWithAnswersList = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
-
-            Form1 f = _mainForm as Form1;
-            QuestionForm questionForm = new QuestionForm(ref f, questionWithAnswersList, _numOfQuestionsAndQuestionTime[1].ToString(), _numOfQuestionsAndQuestionTime[0].ToString());
-
-            //questionForm.NameOfUser.Text = NameOfUser.Text;
-            questionForm.Show();
-            this.Close();
         }
 
         private void LeaveRoomButton_Click(object sender, EventArgs e)
@@ -61,6 +51,21 @@ namespace NewTriviaClient
                 _mainForm.Show();
                 this.Close();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            List<string> questionWithAnswersList = new List<string>();
+
+            questionWithAnswersList = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+
+            Form1 f = _mainForm as Form1;
+            QuestionForm questionForm = new QuestionForm(ref f, questionWithAnswersList, _numOfQuestionsAndQuestionTime[1].ToString(), _numOfQuestionsAndQuestionTime[0].ToString());
+
+            questionForm.NameOfUser.Text = NameOfUser.Text;
+            questionForm.Show();
+            this.Close();
+
         }
     }
 }

@@ -39,8 +39,8 @@ DataBase::DataBase()
 
 		else
 		{
-			stringstream gamesTable, playersAnswersTable, questionsTable, usersTable;
-
+			stringstream gamesTable, playersAnswersTable, questionsTable, usersTable, fk;
+			/*
 			gamesTable << "create table t_games(id integer primary key autoincrement, status int, start_time datetime, end_time datetime)";
 			sqlite3_exec(_db, gamesTable.str().c_str(), NULL, 0, &zErrMsg);
 
@@ -51,6 +51,21 @@ DataBase::DataBase()
 			sqlite3_exec(_db, usersTable.str().c_str(), NULL, 0, &zErrMsg);
 			
 			playersAnswersTable << "create table t_players_answers(game_id integer primary key, username string primary key, question_id integer primary key, player_answer string, is_correct int, answer_time int, foreign key(game_id) REFERENCES games(id), foreign key(user_name) REFERENCES users(username), foreign key(question_id) REFERENCES questions(id))";
+			sqlite3_exec(_db, playersAnswersTable.str().c_str(), NULL, 0, &zErrMsg);*/
+
+			questionsTable << "create table t_questions(question_id int primary key,question string,correct_ans string,ans2 string,ans3 string,ans4 string)";
+			sqlite3_exec(_db, questionsTable.str().c_str(), NULL, 0, &zErrMsg);
+			
+			gamesTable << "create table t_games(game_id int primary key,status int,start_time datetime,end_time datetime)";
+			sqlite3_exec(_db, gamesTable.str().c_str(), NULL, 0, &zErrMsg);
+			
+			usersTable << "create table t_users(username string primary key,password string,email string)";
+			sqlite3_exec(_db, usersTable.str().c_str(), NULL, 0, &zErrMsg);
+			
+			fk << "PRAGMA foreign_keys=1";
+			sqlite3_exec(_db, fk.str().c_str(), NULL, 0, &zErrMsg);
+
+			playersAnswersTable << "create table t_players_answers(game_id int, username string, question_id int, player_answer string, is_correct int, answer_time int, primary key(game_id, username, question_id), foreign key(game_id) REFERENCES t_games(game_id), foreign key(username) REFERENCES t_users(username), foreign key(question_id) REFERENCES t_questions(question_id))";
 			sqlite3_exec(_db, playersAnswersTable.str().c_str(), NULL, 0, &zErrMsg);
 		}
 
@@ -350,11 +365,11 @@ bool DataBase::updateGameStatus(int gameID)
 {
 	int rc;
 	time_t timeNow = time(0);
-	string date = ctime(&timeNow);
+	//string date = ctime(&timeNow);
 	string status = "1";
 	
 	stringstream updateGameStatus;
-	updateGameStatus << "UPDATE t_games SET status = " << '"' <<  status << ", end_time = " << '"' << date << '"'<< " WHERE game_id = " << '"' << std::to_string(gameID) << '"';
+	updateGameStatus << "UPDATE t_games SET status = " << '"' <<  status << ", end_time = datetime('now')" << " WHERE game_id = " << '"' << std::to_string(gameID) << '"';
 
 	try
 	{
@@ -378,12 +393,12 @@ bool DataBase::addAnswerToPlayer(int gameID, string username, int questionID, st
 {
 	int rc;
 	stringstream addAnswerToPlayers;
-	addAnswerToPlayers << "INSERT into t_players values(" << '"' << std::to_string(gameID) << '"' << ", " << '"' << username << '"' << ", " << '"' << std::to_string(questionID) << '"' << ", " << '"' << answer << '"' << ", " << '"' << std::to_string(isCorrect) << '"' << ", " << '"' << std::to_string(answerTime) << '"' << ")";
+	addAnswerToPlayers << "INSERT into t_players(game_id, username, question_id, player_answer, is_correct, answer_time) values("  << std::to_string(gameID)  << ", " << '"' << username << '"' << ", "  << std::to_string(questionID)  << ", " << '"' << answer << '"' << ", " << std::to_string(isCorrect) << ", " << std::to_string(answerTime) << ")";
 
 	try
 	{
 		rc = sqlite3_exec(_db, addAnswerToPlayers.str().c_str(), NULL, 0, &zErrMsg);
-		if (rc != 1)
+		if (rc != SQLITE_OK)
 		{
 			throw exception(INSERTING_ERROR);
 			return false;

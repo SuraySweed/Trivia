@@ -64,11 +64,13 @@ namespace NewTriviaClient
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            _mainForm._gameStarted = true;
+
             List<string> questionAndAnswers = new List<string>();
             List<string> Users = new List<string>();
 
             _mainForm.TriviaServerConnection.SendToServer(_mainForm.MyProtocol.StartGame());
-            Users = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
+            //Users = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
             questionAndAnswers = _mainForm.handleRecievedMessage(_mainForm.TriviaServerConnection.ReceiveFromServer());
 
             Form1 f = _mainForm as Form1;
@@ -76,8 +78,7 @@ namespace NewTriviaClient
             questionForm.NameOfUser.Text = NameOfUser.Text;
             questionForm.Show();
             this.Hide();
-             
-
+           
         }
     }
 }
